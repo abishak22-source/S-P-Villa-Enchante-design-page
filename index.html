@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Villa Enchante | S&amp;P Foundation</title>
+  <meta name="description" content="Villa Enchante by S&amp;P Foundation. Explore the villas, gallery, floor plans, amenities, location and specifications.">
+  <meta name="theme-color" content="#FFFFFF">
+
+  <!-- Favicon: S&P mark with gold corner (S at 16px, S&P at 32px and up) -->
+  <link rel="icon" href="images/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="images/icon-512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+  <!-- Apply saved theme before paint -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('enchante-theme');
+        if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Hero background loads first so it is the first thing visitors see -->
+  <link rel="preload" as="image" href="images/villa-aerial-night-view-highres.webp" type="image/webp" fetchpriority="high">
+</head>
+
+<body>
+  <a class="skip-link" href="#overview">Skip to content</a>
+
+  <!-- ================= HEADER / NAVIGATION ================= -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a href="#home" class="logo" aria-label="Villa Enchante, back to top">
+        <img class="logo__image" src="images/sandp-logo-white.png" width="120" height="66" alt="S&amp;P Aspirational Spaces">
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="#overview">Overview</a>
+        <a href="#features">Features</a>
+        <a href="#amenities">Amenities</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#floorplans">Floor plans</a>
+        <a href="#location">Location</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="header__actions">
+        <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch to dark theme">
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+        </button>
+        <!-- Shown automatically when SITE.contact.phone is filled in -->
+        <a href="#" class="header__phone" id="headerPhone" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/></svg>
+          <span id="headerPhoneText"></span>
+        </a>
+        <a href="#enquiry" class="btn header__cta" data-interest="Site visit">Book a Visit</a>
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+  </header>
+
+  <!-- Mobile drawer -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <nav class="drawer__nav" aria-label="Mobile">
+      <a href="#overview">Overview</a>
+      <a href="#about">About S&amp;P</a>
+      <a href="#features">Features</a>
+      <a href="#amenities">Amenities</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#floorplans">Floor plans</a>
+      <a href="#masterplan">Master plan</a>
+      <a href="#location">Location</a>
+      <a href="#specifications">Specifications</a>
+      <a href="#enquiry">Enquire</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="drawer-scrim" id="scrim"></div>
+
+  <main>
+    <!-- ================= INTRO: logo + compact enquiry form (theme colours) ================= -->
+    <section class="hero hero--split" id="home" aria-label="Villa Enchante">
+      <img class="intro__media is-active" id="heroSlideA" src="images/villa-aerial-night-view-highres.webp" width="2400" height="1185" alt="" aria-hidden="true" fetchpriority="high">
+      <img class="intro__media" id="heroSlideB" src="images/villa-aerial-night-view-highres.webp" width="2400" height="1185" alt="" aria-hidden="true" loading="lazy">
+      <div class="intro__scrim"></div>
+      <div class="container intro">
+        <h1 class="intro__brand fade-in" style="--d:.1s">
+          <img class="intro__campaign" id="introCampaign" src="images/villa-enchante-campaign.jpeg" width="1600" height="900" alt="Villa Enchante campaign: A Home That Grows With You. Every Storey Has a Story.">
+        </h1>
+          <section class="hero__enquiry intro__form fade-in" style="--d:.3s" id="enquiry" aria-label="Villa Enchante enquiry form">
+            <p class="kicker">Enquire now</p>
+            <h2 class="hero__form-title">Plan your visit</h2>
+            <p class="hero__form-note">Share your details and the S&amp;P team will get in touch.</p>
+
+              <div class="form-progress-wrap field--extra">
+              <div class="form-progress" id="formProgress" role="progressbar" aria-label="Enquiry form completion" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0">
+                <span id="formProgressBar"></span>
+              </div>
+              <small id="formProgressLabel">0 of 4 required fields completed</small>
+            </div>
+
+            <form class="form" id="enquiryForm" novalidate>
+              <div class="form__grid">
+                <div class="field">
+                  <label for="fName">Full name</label>
+                  <input id="fName" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+                  <small class="error" aria-live="polite"></small>
+                </div>
+                <div class="field">
+                  <label for="fPhone">Phone number</label>
+                  <input id="fPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+91" required>
+                  <small class="error" aria-live="polite"></small>
+                </div>
+                <div class="field">
+                  <label for="fEmail">Email address</label>
+                  <input id="fEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+                  <small class="error" aria-live="polite"></small>
+                </div>
+                <div class="field field--extra">
+                  <label for="fInterest">Interested in</label>
+                  <select id="fInterest" name="interest">
+                    <option>Site visit</option>
+                    <option>Floor plans</option>
+                    <option>Master plan</option>
+                    <option>Price details</option>
+                    <option>General enquiry</option>
+                  </select>
+                </div>
+                <div class="field field--full field--extra">
+                  <label for="fMsg">Message <span class="optional">(optional)</span></label>
+                  <textarea id="fMsg" name="message" rows="2" placeholder="Tell us what you would like to know"></textarea>
+                </div>
+              </div>
+              <label class="consent">
+                <input type="checkbox" id="fConsent" name="consent">
+                <span>I agree to be contacted by S&amp;P Foundation about Villa Enchante.</span>
+              </label>
+              <small class="error" id="consentError" aria-live="polite"></small>
+              <button class="btn btn--primary btn--wide" type="submit" id="submitBtn">Request a call back</button>
+            </form>
+
+            <div class="success" id="success" hidden>
+              <h3>Request received</h3>
+              <p id="successText"></p>
+              <button class="btn btn--outline" type="button" id="againBtn">Send another request</button>
+            </div>
+          </section>
+      </div>
+      <div class="intro__controls" role="group" aria-label="Project image slideshow controls">
+        <button class="intro__control" id="heroPrev" type="button" aria-label="Previous project image">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 5-7 7 7 7"/></svg>
+        </button>
+        <span class="intro__meter" aria-hidden="true"><span id="heroSlideMeter"></span></span>
+        <button class="intro__control intro__play" id="heroPlay" type="button" aria-label="Pause project images">
+          <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h3v14H8zM15 5h3v14h-3z"/></svg>
+          <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z"/></svg>
+        </button>
+        <button class="intro__control" id="heroNext" type="button" aria-label="Next project image">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5 7 7-7 7"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- ================= PROJECT INTRODUCTION ================= -->
+    <section class="section" id="overview">
+      <div class="container split">
+        <div class="split__text">
+          <p class="kicker reveal">Project overview</p>
+          <h2 class="h2 reveal" id="overviewTitle"></h2>
+          <div class="body-text reveal" id="overviewText"></div>
+          <div class="stats reveal" id="stats"></div>
+          <a href="#floorplans" class="link-arrow reveal">View floor plans</a>
+        </div>
+        <div class="split__media intro-media reveal">
+          <figure class="img-box intro-media__main"><img data-img="overview1" loading="lazy" alt="Rows of villas at Villa Enchante"></figure>
+          <figure class="img-box intro-media__small"><img data-img="overview2" loading="lazy" alt="Landscaped park at Villa Enchante"></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT S&P ================= -->
+    <section class="about" id="about">
+      <div class="about__media">
+        <img data-img="about" data-parallax loading="lazy" alt="Villa Enchante clubhouse building">
+      </div>
+      <div class="about__content">
+        <p class="kicker reveal">About the developer</p>
+        <h2 class="h2 reveal">S&amp;P Foundation</h2>
+        <div class="body-text reveal" id="aboutText"></div>
+        <a href="https://www.sandp.co.in/" target="_blank" rel="noopener" class="link-arrow reveal">Visit sandp.co.in</a>
+      </div>
+    </section>
+
+    <!-- ================= FEATURES ================= -->
+    <section class="section" id="features">
+      <div class="container">
+        <div class="head reveal">
+          <div>
+            <p class="kicker">Villa features</p>
+            <h2 class="h2">Designed for everyday living</h2>
+            <p class="section-copy">A villa community brings private home life together with shared outdoor spaces. Explore the features below, then contact the team to confirm current project details.</p>
+          </div>
+        </div>
+        <div class="features" id="featureList"></div>
+      </div>
+    </section>
+
+<!-- ================= AMENITIES ================= -->
+    <section class="section section--alt" id="amenities">
+      <div class="container">
+        <p class="kicker reveal">Amenities</p>
+        <h2 class="h2 reveal">Shared spaces within the community</h2>
+        <p class="section-copy reveal">Shared facilities are planned to support fitness, play and time outdoors. Ask the project team which amenities are included and available.</p>
+        <div class="amenity-groups" id="amenityList"></div>
+      </div>
+    </section>
+
+<!-- ================= GALLERY ================= -->
+    <section class="section gallery-section" id="gallery">
+      <div class="container">
+        <div class="head reveal">
+          <div>
+            <p class="kicker">Gallery</p>
+            <h2 class="h2">A closer look</h2>
+            <p class="section-copy">Browse exterior and interior views for a feel of the homes and shared spaces. Select a category to focus the gallery, or open an image to view it larger.</p>
+          </div>
+          <div class="filters" id="filters" role="tablist" aria-label="Filter gallery"></div>
+        </div>
+        <div class="gallery is-compact" id="galleryGrid"></div>
+        <div class="gallery__more">
+          <button class="btn gallery__toggle" id="galleryToggle" type="button" aria-controls="galleryGrid" aria-expanded="false">View all photos</button>
+        </div>
+      </div>
+    </section>
+
+<!-- ================= FLOOR PLANS ================= -->
+    <section class="section" id="floorplans">
+      <div class="container">
+        <div class="head reveal">
+          <div>
+            <p class="kicker">Floor plans</p>
+            <h2 class="h2">Layouts and sizes</h2>
+            <p class="section-copy">Explore the site plan, plot layout and villa types across the community.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Site plan viewer: use the on-screen controls to zoom; drag the zoomed plan to pan. -->
+      <div class="plan-viewer reveal" id="planViewer">
+        <div class="plan-viewer__stage" id="planStage">
+          <img class="plan-viewer__img" id="planImg" src="images/site-plan.webp" width="1234" height="821" loading="lazy" draggable="false"
+               alt="Villa Enchante site plan showing plots, roads, club house, park and villa type legend">
+        </div>
+        <div class="plan-viewer__tools" role="toolbar" aria-label="Site plan zoom">
+          <button type="button" data-zoom="in" aria-label="Zoom in"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+          <button type="button" data-zoom="out" aria-label="Zoom out"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+          <button type="button" data-zoom="reset" aria-label="Reset view"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"/></svg></button>
+          <button type="button" data-zoom="full" aria-label="Full screen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+        </div>
+        <p class="plan-viewer__hint" id="planHint" aria-hidden="true">Use + / - to zoom &middot; Drag to move</p>
+      </div>
+    </section>
+
+    
+
+    
+
+    
+
+    <!-- ================= MASTER PLAN ================= -->
+    <section class="masterplan" id="masterplan">
+      <div class="masterplan__bg"><img data-img="masterplan" data-parallax loading="lazy" alt="Aerial view of the Villa Enchante community layout"></div>
+      <div class="container masterplan__content">
+        <p class="kicker kicker--light reveal">Master plan</p>
+        <h2 class="h2 h2--light reveal">See how the community is laid out</h2>
+        <p class="masterplan__text reveal" id="masterText"></p>
+        <div class="reveal">
+          <a href="#enquiry" class="btn btn--primary" data-interest="Master plan">Request the master plan</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LOCATION ================= -->
+    <section class="section" id="location">
+      <div class="container split">
+        <div class="split__text">
+          <p class="kicker reveal">Location</p>
+          <h2 class="h2 reveal">Location and connectivity</h2>
+          <div class="body-text reveal" id="locationText"></div>
+          <ul class="connect reveal" id="connectList"></ul>
+          <a class="link-arrow reveal" id="mapLink" target="_blank" rel="noopener" href="#">Open in Google Maps</a>
+        </div>
+        <div class="split__media reveal">
+          <div class="map" id="mapBox"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SPECIFICATIONS ================= -->
+    <section class="section section--alt" id="specifications">
+      <div class="container specs-wrap">
+        <div class="specs-head reveal">
+          <p class="kicker">Specifications</p>
+          <h2 class="h2">Materials and finishes</h2>
+          <p class="note">Review the listed finish categories. Confirm the final specifications with the project team before booking.</p>
+        </div>
+        <div class="specs" id="specList"></div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section class="section contact" id="contact">
+      <div class="container">
+        <div class="head reveal">
+          <div>
+            <p class="kicker">Contact</p>
+            <h2 class="h2">Get in touch</h2>
+            <p class="section-copy">Choose a contact option below, open the project location, or send an enquiry to arrange a site visit.</p>
+          </div>
+        </div>
+        <div class="contact__row" id="contactRow"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <img class="footer__brand-logo" src="images/sandp-logo-white.png" width="120" height="66" alt="S&amp;P Aspirational Spaces">
+      <p class="footer__copy">&copy; <span id="year"></span> <span class="footer__brand">S&amp;P Foundation</span>. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" aria-hidden="true">
+    <button class="lb-btn lb-close" id="lbClose" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <button class="lb-btn lb-prev" id="lbPrev" type="button" aria-label="Previous image">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <figure class="lb-figure">
+      <img id="lbImg" alt="">
+      <figcaption id="lbCap"></figcaption>
+    </figure>
+    <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="Next image">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+  /* =====================================================================
+     CONTENT
+     Website photos use the local reference images in images/ only.
+  ===================================================================== */
+  const SITE = {
+    hero: {
+      text: 'Villas by S&P Foundation, planned for privacy, natural light and everyday comfort.'
+      // Hero background image: css/style.css -> .hero__bg
+    },
+
+    images: {
+      overview1:  ['images/villa-evening-revised.jpeg'],
+      overview2:  ['images/living-room.webp'],
+      about:      ['images/villa-Type-G-Night.webp'],
+      masterplan: ['images/Villa-typeB-Aerial-revised.webp']
+    },
+
+    overview: {
+      title: 'Villa living by S&P Foundation',
+      paragraphs: [
+        'Villa Enchante is a villa project by S&P Foundation. Each home is planned to give families the space and privacy of an independent house, with well-proportioned rooms and generous natural light.',
+        'Explore the villa features, floor plans, amenities and specifications below, or request a call back to schedule a site visit.'
+      ],
+      // Add official figures to show animated counters, e.g. { value: 40, suffix: '', label: 'Villas' }
+      stats: []
+    },
+
+    about: [
+      'S&P Foundation is a real estate developer building residential apartments and villa communities.',
+      'The company focuses on construction quality, transparent documentation and dependable customer service, from booking through to handover.'
+    ],
+
+    features: [
+      { icon: 'home',  title: 'Independent villas', img: 'images/Villa-Type-A1-Front-Night-View.webp',     text: 'Homes planned as standalone villas with private entrances.' },
+      { icon: 'sun',   title: 'Light and ventilation', img: 'images/Open-to-Deck.webp',  text: 'Room layouts oriented to bring in daylight and cross ventilation.' },
+      { icon: 'leaf',  title: 'Landscaped surroundings', img: 'images/Walkway.webp', text: 'Green open spaces planned across the community.' },
+      { icon: 'shield', title: 'Secure community', img: 'images/Best-Villas-in-Chennai-vella-enchante-The-Signature-at-Mogappair-main-image.webp',      text: 'Controlled entry and security for residents.' },
+      { icon: 'car',   title: 'Dedicated parking', img: 'images/Best-Villas-in-Chennai-vella-enchante-The-Signature-at-Mogappair-main-image2.jpg',      text: 'Parking space planned for every villa.' },
+      { icon: 'key',   title: 'Quality construction', img: 'images/Kitchen.webp',   text: 'Built with carefully selected materials and finishes.' }
+    ],
+
+    gallery: [
+      { img: ['images/Villa-Type-A1-Front-Night-View.webp'], caption: 'Type A1 villa, front at night', cat: 'Villas' },
+      { img: ['images/living-room.webp'], caption: 'Living room', cat: 'Interiors' },
+      { img: ['images/Walkway.webp'], caption: 'Landscaped walkway', cat: 'Amenities' },
+      { img: ['images/Villa-Type-B1-Front-View.webp'], caption: 'Type B1 villas, front view', cat: 'Villas' },
+      { img: ['images/Kitchen.webp'], caption: 'Kitchen', cat: 'Interiors' },
+      { img: ['images/villa-night-perspective.webp'], caption: 'Internal street at night', cat: 'Villas' },
+      { img: ['images/Bedroom.webp'], caption: 'Bedroom', cat: 'Interiors' },
+      { img: ['images/cam5.webp'], caption: 'Tennis court', cat: 'Amenities' },
+      { img: ['images/Villa-typeB-Aerial-revised.webp'], caption: 'Type B villas from above', cat: 'Villas' },
+      { img: ['images/dining.webp'], caption: 'Dining area', cat: 'Interiors' },
+      { img: ['images/Villa-Type-G-revised.webp'], caption: 'Type G villa', cat: 'Villas' },
+      { img: ['images/cam6.webp'], caption: 'Gazebo and lawn', cat: 'Amenities' },
+      { img: ['images/Lounge-floor-1.webp'], caption: 'First-floor lounge', cat: 'Interiors' },
+      { img: ['images/Villa-landscape-twilight-highres.webp'], caption: 'Landscaped courtyard at twilight', cat: 'Amenities' },
+      { img: ['images/Villa-TypeA1-Side-View.webp'], caption: 'Type A1 villa, side view', cat: 'Villas' },
+      { img: ['images/Bedroom-1.webp'], caption: 'Bedroom', cat: 'Interiors' },
+      { img: ['images/villa-typeG1-aerialview.webp'], caption: 'Type G1 villa from above', cat: 'Villas' },
+      { img: ['images/Open-to-Deck.webp'], caption: 'Living area opening to the deck', cat: 'Interiors' },
+      { img: ['images/club-night.webp'], caption: 'Clubhouse at night', cat: 'Amenities' },
+      { img: ['images/Villa-Type-B1-Side-View.webp'], caption: 'Type B1 villa, side view', cat: 'Villas' },
+      { img: ['images/Bedroom-3.webp'], caption: 'Bedroom', cat: 'Interiors' },
+      { img: ['images/inside-landscape-view-villas-highres.webp'], caption: 'Garden between the villas', cat: 'Amenities' },
+      { img: ['images/villa-Type-G-Night.webp'], caption: 'Type G villa at night', cat: 'Villas' },
+      { img: ['images/Basket-Ball-Tennis-Court.webp'], caption: 'Basketball and tennis courts', cat: 'Amenities' },
+      { img: ['images/Villa-Type-A1-Aerial-View.webp'], caption: 'Type A1 villas from above', cat: 'Villas' },
+      { img: ['images/Best-Villas-in-Chennai-vella-enchante-The-Signature-at-Mogappair-main-image.webp'], caption: 'Villa row at dusk', cat: 'Villas' },
+      { img: ['images/Best-Villas-in-Chennai-vella-enchante-The-Signature-at-Mogappair-main-image2.jpg'], caption: 'Villa row by day', cat: 'Villas' },
+      { img: ['images/villa-evening-revised.jpeg'], caption: 'Villas in the evening', cat: 'Villas' }
+    ],
+
+    // Amenities, grouped. icon = a key of the ICON map below
+    amenities: [
+      {
+        title: 'Clubhouse Amenities',
+        items: [
+          { icon: 'hall',  name: 'Multipurpose Hall' },
+          { icon: 'gym',   name: 'Gymnasium' },
+          { icon: 'dice',  name: 'Indoor Games Room' }
+        ]
+      },
+      {
+        title: 'OSR Amenities',
+        items: [
+          { icon: 'plaza',    name: 'Plaza with concentric paving' },
+          { icon: 'walkway',  name: 'Walkway' },
+          { icon: 'slide',    name: "Children's play area" },
+          { icon: 'football', name: 'Futsal court' },
+          { icon: 'paddle',   name: 'Pickleball / multipurpose court' },
+          { icon: 'cricket',  name: 'Cricket pitch' },
+          { icon: 'stones',   name: 'Steppingstone path with grass joint' },
+          { icon: 'bench',    name: 'Seating area' },
+          { icon: 'yoga',     name: 'Yoga lawn / party lawn' },
+          { icon: 'gazebo',   name: 'Gazebo' },
+          { icon: 'planter',  name: 'Stepped planter' }
+        ]
+      }
+    ],
+
+      masterPlan: 'The master plan shows how villas, internal roads, open spaces and shared amenities are arranged across the community. Request the latest project plan from the S&P team and discuss the layout before arranging a visit.',
+
+    location: {
+      text: 'Use the map to find Villa Enchante and plan a route for your visit. Contact the S&P team to confirm an appointment and ask for current directions or nearby landmarks.',
+      mapQuery: 'S&P Villa Enchante',
+      // Add official distances, e.g. { place: 'Airport', distance: '20 km' }
+      connectivity: []
+    },
+
+    specifications: [
+      { title: 'Structure',        items: ['RCC framed structure designed for the local seismic zone', 'Masonry walls with plastered finish'] },
+      { title: 'Flooring',         items: ['Vitrified tiles in living, dining and bedrooms', 'Anti-skid tiles in bathrooms, balconies and utility areas'] },
+      { title: 'Kitchen',          items: ['Granite counter with stainless steel sink', 'Provision for water purifier and exhaust'] },
+      { title: 'Bathrooms',        items: ['Branded sanitary ware and CP fittings', 'Wall tiles up to door height'] },
+      { title: 'Doors and windows', items: ['Hardwood main door frame with polished shutter', 'UPVC or aluminium windows with grills'] },
+      { title: 'Electrical',       items: ['Concealed copper wiring with modular switches', 'Provision for air conditioning in bedrooms'] }
+    ],
+
+    contact: {
+      phone: '',           // e.g. '+91 00000 00000'
+      email: '',           // e.g. 'sales@example.com'
+      address: '',
+      website: 'https://www.sandp.co.in/',
+      rera: ''             // not displayed anywhere at the moment
+    },
+
+   formEndpoint: 'https://script.google.com/macros/s/AKfycbzk4oVIT30q4Cy8PViOr7CyEH2sxbKEfU4rkEzOopoy2wSgK3F03ODQGBCJxzfuxefe/exec'
+          // optional URL that accepts a JSON POST
+  };
+
+  /* =====================================================================
+     APP
+  ===================================================================== */
+  (function () {
+    'use strict';
+
+    const $  = (s, r) => (r || document).querySelector(s);
+    const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---------- Images ---------- */
+    // No fallback photos: every image must come from the provided Villa Enchante set
+    const BACKUP = [];
+
+    function toUrl(src, w) {
+      return src;
+    }
+
+    function setImg(img, list, w) {
+      if (!img) return;
+      const chain = [...new Set([...(list || []), ...BACKUP])].map((s) => toUrl(s, w));
+      let i = 0;
+      img.onerror = function () {
+        i += 1;
+        if (i < chain.length) img.src = chain[i];
+        else { img.onerror = null; img.classList.add('is-missing'); }
+      };
+      img.decoding = 'async';
+      img.src = chain[0];
+    }
+
+    /* ---------- Icons ---------- */
+    const ICON = {
+      home: '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
+      sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6L19 19M5 19l1.4-1.4M17.6 6.4L19 5"/>',
+      leaf: '<path d="M5 19c0-9 6-14 15-14 0 9-5 15-14 15z"/><path d="M5 19l8-8"/>',
+      shield: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>',
+      car: '<path d="M4 16v-4l2-5h12l2 5v4z"/><circle cx="7.5" cy="16.5" r="1.5"/><circle cx="16.5" cy="16.5" r="1.5"/>',
+      key: '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3"/>',
+      pool: '<path d="M2 17c2.5 0 2.5 2 5 2s2.5-2 5-2 2.5 2 5 2 2.5-2 5-2"/><path d="M8 14V5a2 2 0 0 1 4 0M16 14V5"/><path d="M8 9h8"/>',
+      gym: '<path d="M6 7v10M3 9.5v5M18 7v10M21 9.5v5M6 12h12"/>',
+      tree: '<path d="M12 3l6 9h-3l4 6H5l4-6H6z"/><path d="M12 18v3"/>',
+      play: '<circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z"/>',
+      users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/>',
+      bolt: '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+      drop: '<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',
+      phone: '<path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/>',
+      mail: '<rect x="3" y="5" width="18" height="14"/><path d="M3 7l9 6 9-6"/>',
+      pin: '<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+      web: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+      cal: '<rect x="3" y="5" width="18" height="16"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+      // amenities
+      hall: '<path d="M3 9l9-5 9 5z"/><path d="M5 9v10M9.7 9v10M14.3 9v10M19 9v10M3 19h18"/>',
+      dice: '<rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="8.5" cy="8.5" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.2" fill="currentColor"/>',
+      plaza: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="2"/>',
+      walkway: '<ellipse cx="8" cy="7.5" rx="2.6" ry="3.6"/><ellipse cx="8" cy="13.6" rx="2" ry="1.5"/><ellipse cx="16" cy="10.5" rx="2.6" ry="3.6"/><ellipse cx="16" cy="16.6" rx="2" ry="1.5"/>',
+      slide: '<path d="M4 21V7M8 21V7M4 7h4M4 11h4M4 15h4"/><path d="M8 7c5 0 7 12 13 13"/>',
+      football: '<circle cx="12" cy="12" r="9"/><path d="M12 8l3.3 2.4-1.3 3.9h-4l-1.3-3.9z"/><path d="M12 3v5M15.3 10.4l4.8-1.6M14 14.3l2.9 4.1M10 14.3l-2.9 4.1M8.7 10.4L3.9 8.8"/>',
+      paddle: '<ellipse cx="9" cy="9" rx="5" ry="6" transform="rotate(-45 9 9)"/><path d="M12.8 12.8L19 19"/><circle cx="19" cy="5.5" r="2"/>',
+      cricket: '<path d="M13.5 7.5l3 3-9 9H4.5v-3z"/><path d="M15 9l5-5"/><circle cx="18" cy="18" r="2.2"/>',
+      stones: '<ellipse cx="7" cy="18" rx="3.2" ry="1.9"/><ellipse cx="15.5" cy="12.5" rx="3.2" ry="1.9"/><ellipse cx="8.5" cy="6.5" rx="3.2" ry="1.9"/><path d="M14 20l.6-1.6M16.5 20l.3-2M3 12l.6-1.6M20 7l.5-1.8"/>',
+      bench: '<path d="M4 6h16v4H4z"/><path d="M3 13h18M6 10v9M18 10v9"/>',
+      yoga: '<circle cx="12" cy="4.5" r="2"/><path d="M12 7.5v5M12 9.5l-4.5 3.5M12 9.5l4.5 3.5"/><path d="M4 17.5c2.7-2.3 5.6-2.6 8-.8 2.4-1.8 5.3-1.5 8 .8"/><path d="M3 21h18"/>',
+      gazebo: '<path d="M12 2v1.8M2.5 10L12 3.8l9.5 6.2z"/><path d="M5 10v10M19 10v10M3 20h18M8 16h8"/>',
+      planter: '<path d="M3 20h18M3 20v-4h6v-4h6v-4h6v12"/><path d="M6 16v-3M6 13c-1.5 0-2-1-2-2M6 13c1.5 0 2-1 2-2M12 12V9M12 9c-1.5 0-2-1-2-2M12 9c1.5 0 2-1 2-2M18 8V5M18 5c-1.5 0-2-1-2-2M18 5c1.5 0 2-1 2-2"/>'
+    };
+    const svg = (n) => '<svg viewBox="0 0 24 24" aria-hidden="true">' + (ICON[n] || ICON.home) + '</svg>';
+
+    function make(tag, cls, text) {
+      const n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text !== undefined) n.textContent = text;
+      return n;
+    }
+
+    /* ---------- Render ---------- */
+    function renderHero() {
+      const t = $('#heroText');
+      if (t) t.textContent = SITE.hero.text;
+    }
+
+    function renderStatic() {
+      $$('[data-img]').forEach((img) => setImg(img, SITE.images[img.dataset.img], 1400));
+      $('#overviewTitle').textContent = SITE.overview.title;
+      SITE.overview.paragraphs.forEach((p) => $('#overviewText').appendChild(make('p', '', p)));
+      SITE.about.forEach((p) => $('#aboutText').appendChild(make('p', '', p)));
+      $('#masterText').textContent = SITE.masterPlan;
+      $('#year').textContent = new Date().getFullYear();
+    }
+
+    function renderStats() {
+      const box = $('#stats');
+      const list = SITE.overview.stats.filter((s) => typeof s.value === 'number');
+      if (!list.length) { box.remove(); return; }
+      list.forEach((s) => {
+        const d = make('div', 'stat');
+        const n = make('span', 'stat__num', '0');
+        n.dataset.target = s.value;
+        n.dataset.suffix = s.suffix || '';
+        d.append(n, make('span', 'stat__label', s.label));
+        box.appendChild(d);
+      });
+    }
+
+    function renderFeatures() {
+      const box = $('#featureList');
+      SITE.features.forEach((f, i) => {
+        const it = make('div', 'feature reveal');
+        it.style.setProperty('--d', (i % 3) * 0.08 + 's');
+        const ic = make('span', 'feature__icon');
+        ic.innerHTML = svg(f.icon);
+        if (f.img) {
+          it.classList.add('feature--media');
+          const fig = make('figure', 'feature__media');
+          const im = make('img');
+          im.alt = f.title;
+          im.loading = 'lazy';
+          setImg(im, [f.img], 900);
+          fig.appendChild(im);
+          const body = make('div', 'feature__body');
+          body.append(ic, make('h3', 'feature__title', f.title), make('p', 'feature__text', f.text));
+          it.append(fig, body);
+        } else {
+          it.append(ic, make('h3', 'feature__title', f.title), make('p', 'feature__text', f.text));
+        }
+        box.appendChild(it);
+      });
+    }
+
+    function renderGallery() {
+      const grid = $('#galleryGrid');
+      const filters = $('#filters');
+      const toggle = $('#galleryToggle');
+      const LIMIT = 6;
+      let cat = 'All';
+      let expanded = false;
+      // Mark which tiles are past the first 6 of the current filter; label the button
+      function layout() {
+        const vis = $$('.g-item:not(.is-hidden)', grid);
+        vis.forEach((it, i) => it.classList.toggle('is-extra', i >= LIMIT));
+        grid.classList.toggle('is-compact', !expanded);
+        toggle.parentElement.hidden = vis.length <= LIMIT;
+        toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        toggle.textContent = expanded ? 'Show fewer' : 'View all ' + vis.length + ' photos';
+      }
+      toggle.addEventListener('click', () => {
+        expanded = !expanded;
+        layout();
+        if (!expanded) $('#gallery').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+      });
+      const cats = ['All', ...new Set(SITE.gallery.map((g) => g.cat))];
+      cats.forEach((c, i) => {
+        const b = make('button', 'filter' + (i ? '' : ' is-active'), c);
+        b.type = 'button';
+        b.setAttribute('role', 'tab');
+        b.setAttribute('aria-selected', i ? 'false' : 'true');
+        b.addEventListener('click', () => {
+          $$('.filter', filters).forEach((x) => { x.classList.toggle('is-active', x === b); x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
+          cat = c;
+          expanded = false;
+          $$('.g-item', grid).forEach((it) => {
+            const show = c === 'All' || it.dataset.cat === c;
+            it.classList.toggle('is-hidden', !show);
+            if (show) {
+              it.classList.remove('filter-in');
+              void it.offsetWidth;
+              it.classList.add('filter-in');
+            }
+          });
+          layout();
+        });
+        filters.appendChild(b);
+      });
+
+      SITE.gallery.forEach((g, i) => {
+        const it = make('button', 'g-item reveal');
+        it.type = 'button';
+        it.dataset.cat = g.cat;
+        it.style.setProperty('--d', (i % 4) * 0.06 + 's');
+        it.setAttribute('aria-label', 'Open ' + g.caption);
+        const img = make('img');
+        img.alt = g.caption;
+        img.loading = 'lazy';
+        setImg(img, g.img, 1200);
+        const cap = make('span', 'g-item__cap');
+        cap.append(make('span', 'g-item__cat', g.cat), make('span', 'g-item__title', g.caption));
+        it.append(img, cap);
+        it.addEventListener('click', () => {
+          const vis = $$('.g-item:not(.is-hidden)', grid);
+          openLb(vis.map((v) => ({ src: v.querySelector('img').currentSrc || v.querySelector('img').src, cap: v.querySelector('img').alt })), vis.indexOf(it));
+        });
+        grid.appendChild(it);
+      });
+      layout();
+    }
+
+    function renderAmenities() {
+      const box = $('#amenityList');
+      SITE.amenities.forEach((g) => {
+        const group = make('div', 'amenity-group');
+        const ul = make('ul', 'amenity-cards' + (g.items.length <= 3 ? ' amenity-cards--3' : ''));
+        g.items.forEach((a, i) => {
+          const li = make('li', 'amenity-card reveal');
+          li.style.setProperty('--d', (i % 4) * 0.06 + 's');
+          const ic = make('span', 'amenity-card__icon');
+          ic.innerHTML = svg(a.icon);
+          li.append(ic, make('span', 'amenity-card__name', a.name));
+          ul.appendChild(li);
+        });
+        group.append(make('h3', 'amenity-group__title reveal', g.title), ul);
+        box.appendChild(group);
+      });
+    }
+
+    function renderLocation() {
+      const L = SITE.location;
+      $('#locationText').appendChild(make('p', '', L.text));
+      const q = encodeURIComponent(L.mapQuery);
+      $('#mapLink').href = 'https://www.google.com/maps/search/?api=1&query=' + q;
+      const f = make('iframe');
+      f.src = 'https://maps.google.com/maps?q=' + q + '&z=13&output=embed';
+      f.title = 'Map showing Villa Enchante';
+      f.loading = 'lazy';
+      f.referrerPolicy = 'no-referrer-when-downgrade';
+      $('#mapBox').appendChild(f);
+      const ul = $('#connectList');
+      if (!L.connectivity.length) { ul.remove(); return; }
+      L.connectivity.forEach((c) => {
+        const li = make('li');
+        li.append(make('span', '', c.place), make('strong', '', c.distance));
+        ul.appendChild(li);
+      });
+    }
+
+    function renderSpecs() {
+      const box = $('#specList');
+      SITE.specifications.forEach((s, i) => {
+        const item = make('div', 'spec' + (i === 0 ? ' is-open' : ''));
+        const btn = make('button', 'spec__btn');
+        btn.type = 'button';
+        btn.setAttribute('aria-expanded', i === 0 ? 'true' : 'false');
+        btn.setAttribute('aria-controls', 'spec' + i);
+        btn.append(make('span', '', s.title), make('span', 'spec__sign'));
+        const body = make('div', 'spec__body');
+        body.id = 'spec' + i;
+        const inner = make('div', 'spec__inner');
+        const ul = make('ul');
+        s.items.forEach((t) => ul.appendChild(make('li', '', t)));
+        inner.appendChild(ul);
+        body.appendChild(inner);
+        btn.addEventListener('click', () => {
+          const open = item.classList.toggle('is-open');
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        item.append(btn, body);
+        box.appendChild(item);
+      });
+    }
+
+    function renderContact() {
+      const C = SITE.contact;
+      const row = $('#contactRow');
+      const cards = [];
+      if (C.phone) cards.push({ icon: 'phone', label: 'Call', value: C.phone, href: 'tel:' + C.phone.replace(/[^\d+]/g, '') });
+      if (C.email) cards.push({ icon: 'mail', label: 'Email', value: C.email, href: 'mailto:' + C.email });
+      if (C.address) cards.push({ icon: 'pin', label: 'Office', value: C.address });
+      cards.push({ icon: 'web', label: 'Website', value: 'www.sandp.co.in', href: C.website, ext: true });
+      cards.push({ icon: 'cal', label: 'Site visits', value: 'Book through the enquiry form', href: '#enquiry' });
+      cards.push({ icon: 'pin', label: 'Directions', value: 'Open the project on Google Maps', href: $('#mapLink').href, ext: true });
+      cards.forEach((c, i) => {
+        const el = make(c.href ? 'a' : 'div', 'contact__item reveal');
+        el.style.setProperty('--d', i * 0.06 + 's');
+        if (c.href) el.href = c.href;
+        if (c.ext) { el.target = '_blank'; el.rel = 'noopener'; }
+        const ic = make('span', 'contact__icon');
+        ic.innerHTML = svg(c.icon);
+        const tx = make('span', 'contact__text');
+        tx.append(make('small', '', c.label), make('span', '', c.value));
+        el.append(ic, tx);
+        row.appendChild(el);
+      });
+    }
+
+    /* ---------- Hero drone camera ---------- */
+    function initDrone() {
+      const hero = $('.hero');
+      const rig = $('#heroRig');
+      if (!hero || !rig) return;
+      // Pause the flight while the hero is off-screen (saves battery/CPU)
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(([e]) => hero.classList.toggle('is-offscreen', !e.isIntersecting)).observe(hero);
+      }
+      // Desktop only: the camera leans slightly toward the pointer for extra depth
+      if (reduce || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      let tx = 0, ty = 0, x = 0, y = 0, raf = 0;
+      function tick() {
+        x += (tx - x) * 0.06; y += (ty - y) * 0.06;
+        rig.style.transform = 'translate3d(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px,0)';
+        raf = (Math.abs(tx - x) > 0.05 || Math.abs(ty - y) > 0.05) ? requestAnimationFrame(tick) : 0;
+      }
+      hero.addEventListener('pointermove', (e) => {
+        const r = hero.getBoundingClientRect();
+        tx = ((e.clientX - r.left) / r.width - 0.5) * -18;
+        ty = ((e.clientY - r.top) / r.height - 0.5) * -12;
+        if (!raf) raf = requestAnimationFrame(tick);
+      });
+      hero.addEventListener('pointerleave', () => { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(tick); });
+    }
+
+    /* ---------- Cinematic project image sequence ---------- */
+    function initIntroCarousel() {
+      const hero = $('.hero--split');
+      const layers = [$('#heroSlideA'), $('#heroSlideB')];
+      const meter = $('#heroSlideMeter');
+      const pause = $('#heroPlay');
+      if (!hero || !layers[0] || !layers[1] || !meter || !pause) return;
+
+      const photos = [
+        'images/villa-aerial-night-view-highres.webp',
+        'images/Villa-Type-A1-Front-Night-View.webp',
+        'images/Villa-typeB-Aerial-revised.webp',
+        'images/villa-evening-revised.jpeg'
+      ];
+      const delay = 6800;
+      let index = 0, activeLayer = 0, timer = 0, heroVisible = true, requestId = 0;
+      let paused = reduce;
+      let startedAt = 0, remaining = delay, meterAnimation = null;
+
+      function updateControls() {
+        pause.classList.toggle('is-paused', paused);
+        pause.setAttribute('aria-label', paused ? 'Play project images' : 'Pause project images');
+        pause.setAttribute('aria-pressed', paused ? 'true' : 'false');
+      }
+      function stopTimer() {
+        clearTimeout(timer);
+        timer = 0;
+        if (meterAnimation) meterAnimation.pause();
+        if (startedAt) remaining = Math.max(0, remaining - (performance.now() - startedAt));
+        startedAt = 0;
+      }
+      function runTimer() {
+        clearTimeout(timer);
+        if (paused || !heroVisible || document.hidden) return;
+        if (!remaining) remaining = delay;
+        startedAt = performance.now();
+        if (meterAnimation) meterAnimation.play();
+        timer = window.setTimeout(() => show(index + 1), remaining);
+      }
+      function resetMeter() {
+        if (meterAnimation) meterAnimation.cancel();
+        meter.style.transform = 'scaleX(0)';
+        meterAnimation = meter.animate(
+          [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }],
+          { duration: delay, easing: 'linear', fill: 'forwards' }
+        );
+        if (paused || !heroVisible || document.hidden) meterAnimation.pause();
+        else startedAt = performance.now();
+        remaining = delay;
+      }
+      function show(nextIndex) {
+        stopTimer();
+        const thisRequest = ++requestId;
+        const target = (nextIndex + photos.length) % photos.length;
+        const layerIndex = 1 - activeLayer;
+        const preload = new Image();
+        preload.onload = () => {
+          if (thisRequest !== requestId) return;
+          layers[layerIndex].src = photos[target];
+          requestAnimationFrame(() => {
+            if (thisRequest !== requestId) return;
+            layers[layerIndex].classList.add('is-active');
+            layers[activeLayer].classList.remove('is-active');
+            activeLayer = layerIndex;
+            index = target;
+            resetMeter();
+            runTimer();
+          });
+        };
+        preload.onerror = () => { remaining = delay; runTimer(); };
+        preload.src = photos[target];
+      }
+
+      $('#heroPrev').addEventListener('click', () => show(index - 1));
+      $('#heroNext').addEventListener('click', () => show(index + 1));
+      pause.addEventListener('click', () => {
+        paused = !paused;
+        updateControls();
+        if (paused) stopTimer();
+        else runTimer();
+      });
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stopTimer();
+        else runTimer();
+      });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(([entry]) => {
+          heroVisible = entry.isIntersecting;
+          if (heroVisible) runTimer(); else stopTimer();
+        }, { threshold: 0.05 }).observe(hero);
+      }
+
+      updateControls();
+      resetMeter();
+      runTimer();
+    }
+
+    /* ---------- Site plan viewer ---------- */
+    function initPlanViewer() {
+      const box = $('#planViewer');
+      if (!box) return;
+      const stage = $('#planStage');
+      const img = $('#planImg');
+      const hint = $('#planHint');
+      const MAX = 6;
+      let k = 1, x = 0, y = 0;                       // scale and offset (px) of the image inside the stage
+      let last = null, activePointer = null;
+
+      function clamp() {
+        const w = stage.clientWidth, h = stage.clientHeight;
+        k = Math.min(MAX, Math.max(1, k));
+        x = Math.min(0, Math.max(w - w * k, x));
+        y = Math.min(0, Math.max(h - h * k, y));
+      }
+      function draw(anim) {
+        clamp();
+        img.style.transition = anim ? 'transform .25s var(--ease)' : 'none';
+        img.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + k + ')';
+        box.classList.toggle('is-zoomed', k > 1.001);
+        $$('[data-zoom="in"]', box).forEach((button) => { button.disabled = k >= MAX - 0.001; });
+        $$('[data-zoom="out"]', box).forEach((button) => { button.disabled = k <= 1.001; });
+        $$('[data-zoom="reset"]', box).forEach((button) => { button.disabled = k <= 1.001; });
+      }
+      function zoomAt(f, cx, cy, anim) {             // zoom by factor f around stage point (cx, cy)
+        const nk = Math.min(MAX, Math.max(1, k * f));
+        x = cx - (cx - x) * (nk / k);
+        y = cy - (cy - y) * (nk / k);
+        k = nk;
+        draw(anim);
+      }
+      function used() { box.classList.add('is-used'); }
+      const local = (e) => { const r = stage.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+      const centre = () => [stage.clientWidth / 2, stage.clientHeight / 2];
+
+      stage.addEventListener('pointerdown', (e) => {
+        if (k <= 1.001 || !e.isPrimary || (e.pointerType === 'mouse' && e.button !== 0)) return;
+        activePointer = e.pointerId;
+        last = local(e);
+        stage.setPointerCapture(e.pointerId);
+      });
+      stage.addEventListener('pointermove', (e) => {
+        if (e.pointerId === activePointer && last && k > 1) {
+          const p = local(e);
+          x += p[0] - last[0]; y += p[1] - last[1];
+          last = p;
+          used();
+          box.classList.add('is-dragging');
+          draw(false);
+        }
+      });
+      function up(e) {
+        if (e.pointerId === activePointer) { activePointer = null; last = null; }
+        box.classList.remove('is-dragging');
+      }
+      stage.addEventListener('pointerup', up);
+      stage.addEventListener('pointercancel', up);
+
+      $$('[data-zoom]', box).forEach((b) => b.addEventListener('click', () => {
+        used();
+        const [cx, cy] = centre();
+        const z = b.dataset.zoom;
+        if (z === 'in') zoomAt(1.6, cx, cy, true);
+        else if (z === 'out') zoomAt(1 / 1.6, cx, cy, true);
+        else if (z === 'reset') { k = 1; x = 0; y = 0; draw(true); }
+        else if (z === 'full') {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else if (box.classList.contains('is-full')) setFull(false);
+          else if (box.requestFullscreen) box.requestFullscreen().catch(() => setFull(true));
+          else setFull(true);                         // iPhone Safari: CSS full-screen fallback
+        }
+      }));
+      // Keep the view inside the image after the frame changes size (fullscreen, rotate, resize)
+      const refit = () => { k = 1; x = 0; y = 0; draw(false); };
+      function setFull(on) {
+        box.classList.toggle('is-full', on);
+        document.body.classList.toggle('locked', on);
+        requestAnimationFrame(refit);
+      }
+      document.addEventListener('fullscreenchange', refit);
+      window.addEventListener('resize', () => draw(false));
+      window.addEventListener('orientationchange', () => setTimeout(refit, 250));
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && box.classList.contains('is-full')) setFull(false); });
+      draw(false);
+      if (window.matchMedia('(pointer: coarse)').matches) hint.textContent = 'Tap + / - to zoom; drag to move';
+    }
+
+    /* ---------- Theme ---------- */
+    function initTheme() {
+      const btn = $('#themeBtn');
+      const meta = $('meta[name="theme-color"]');
+      function apply(t, save) {
+        document.documentElement.setAttribute('data-theme', t);
+        btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        meta.setAttribute('content', t === 'dark' ? '#121212' : '#FFFFFF');
+        if (save) { try { localStorage.setItem('enchante-theme', t); } catch (e) {} }
+      }
+      apply(document.documentElement.getAttribute('data-theme') || 'light', false);
+      btn.addEventListener('click', () => {
+        const root = document.documentElement;
+        root.classList.add('theme-fade');
+        apply(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true);
+        setTimeout(() => root.classList.remove('theme-fade'), 400);
+      });
+    }
+
+    /* ---------- Navigation ---------- */
+    function initNav() {
+      const header = $('#header');
+      const btn = $('#menuBtn');
+      const drawer = $('#drawer');
+
+      // Header phone number comes from SITE.contact.phone; stays hidden while empty
+      const phone = (SITE.contact.phone || '').trim();
+      if (phone) {
+        const tel = $('#headerPhone');
+        tel.href = 'tel:' + phone.replace(/[^\d+]/g, '');
+        $('#headerPhoneText').textContent = phone;
+        tel.hidden = false;
+      }
+
+      function setOpen(open) {
+        document.body.classList.toggle('drawer-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+      }
+      btn.addEventListener('click', () => setOpen(!document.body.classList.contains('drawer-open')));
+      $('#scrim').addEventListener('click', () => setOpen(false));
+      $$('a', drawer).forEach((a) => a.addEventListener('click', () => setOpen(false)));
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+      window.addEventListener('resize', () => { if (window.innerWidth >= 1200) setOpen(false); });
+
+      const progress = $('#scrollProgress');
+      const onScroll = () => {
+        header.classList.toggle('is-solid', window.scrollY > 40);
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.transform = 'scaleX(' + (maxScroll > 0 ? window.scrollY / maxScroll : 0) + ')';
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      const links = $$('.nav a, .drawer__nav a');
+      const spy = new IntersectionObserver((es) => {
+        es.forEach((e) => {
+          if (!e.isIntersecting) return;
+          links.forEach((l) => l.classList.toggle('is-active', l.getAttribute('href') === '#' + e.target.id));
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      $$('main section[id]').forEach((s) => spy.observe(s));
+
+      // Buttons that preselect the enquiry topic
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('[data-interest]');
+        if (a) $('#fInterest').value = a.dataset.interest;
+      });
+    }
+
+    /* ---------- Scroll effects ---------- */
+    function countUp(n) {
+      const target = parseFloat(n.dataset.target);
+      const suf = n.dataset.suffix;
+      if (reduce) { n.textContent = target + suf; return; }
+      const t0 = performance.now();
+      (function tick(now) {
+        const p = Math.min((now - t0) / 1600, 1);
+        n.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suf;
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+    }
+
+    function initScroll() {
+      const io = new IntersectionObserver((es, o) => {
+        es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); o.unobserve(e.target); } });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      $$('.reveal').forEach((n) => io.observe(n));
+
+      const co = new IntersectionObserver((es, o) => {
+        es.forEach((e) => { if (e.isIntersecting) { countUp(e.target); o.unobserve(e.target); } });
+      }, { threshold: 0.6 });
+      $$('.stat__num').forEach((n) => co.observe(n));
+
+      const par = reduce ? [] : $$('[data-parallax]');
+      let busy = false;
+      function update() {
+        const vh = window.innerHeight;
+        par.forEach((img) => {
+          const r = img.parentElement.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > vh) return;
+          const off = ((r.top + r.height / 2 - vh / 2) / (vh + r.height)) * -0.24 * r.height;
+          img.style.transform = 'translate3d(0,' + off.toFixed(1) + 'px,0)';
+        });
+        busy = false;
+      }
+      window.addEventListener('scroll', () => { if (!busy) { busy = true; requestAnimationFrame(update); } }, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    }
+
+    /* ---------- Lightbox ---------- */
+    let lbList = [], lbI = 0, lbBack = null;
+    function openLb(list, i) {
+      lbList = list; lbI = Math.max(0, i); lbBack = document.activeElement;
+      showLb();
+      const lb = $('#lightbox');
+      lb.classList.add('is-open');
+      lb.classList.toggle('is-single', list.length < 2);
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('locked');
+      $('#lbClose').focus();
+    }
+    function showLb() {
+      const it = lbList[lbI];
+      const img = $('#lbImg');
+      img.src = it.src;
+      img.alt = it.cap;
+      $('#lbCap').textContent = it.cap + (lbList.length > 1 ? '   ' + (lbI + 1) + ' / ' + lbList.length : '');
+    }
+    function closeLb() {
+      const lb = $('#lightbox');
+      if (!lb.classList.contains('is-open')) return;
+      lb.classList.remove('is-open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('locked');
+      if (lbBack) lbBack.focus();
+    }
+    function stepLb(d) { if (lbList.length > 1) { lbI = (lbI + d + lbList.length) % lbList.length; showLb(); } }
+    function initLb() {
+      $('#lbClose').addEventListener('click', closeLb);
+      $('#lbPrev').addEventListener('click', () => stepLb(-1));
+      $('#lbNext').addEventListener('click', () => stepLb(1));
+      $('#lightbox').addEventListener('click', (e) => { if (e.target.id === 'lightbox') closeLb(); });
+      // Swipe left/right on touch screens
+      let sx = 0, sy = 0;
+      $('#lightbox').addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+      $('#lightbox').addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) stepLb(dx < 0 ? 1 : -1);
+      }, { passive: true });
+      document.addEventListener('keydown', (e) => {
+        if (!$('#lightbox').classList.contains('is-open')) return;
+        if (e.key === 'Escape') closeLb();
+        if (e.key === 'ArrowLeft') stepLb(-1);
+        if (e.key === 'ArrowRight') stepLb(1);
+      });
+    }
+
+    /* ---------- Toast ---------- */
+    let tt;
+    function toast(m) {
+      const t = $('#toast');
+      t.textContent = m;
+      t.classList.add('show');
+      clearTimeout(tt);
+      tt = setTimeout(() => t.classList.remove('show'), 3500);
+    }
+
+    /* ---------- Form ---------- */
+    function initForm() {
+      const form = $('#enquiryForm');
+      const btn = $('#submitBtn');
+      const rules = {
+        fName: (v) => v.trim().length >= 2 || 'Enter your full name.',
+        fPhone: (v) => /^\+?[\d\s-]{10,15}$/.test(v.trim()) || 'Enter a phone number with at least 10 digits.',
+        fEmail: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || 'Enter a valid email address.'
+      };
+      const consent = $('#fConsent');
+      const progress = $('#formProgress');
+      const progressBar = $('#formProgressBar');
+      const progressLabel = $('#formProgressLabel');
+      function updateProgress() {
+        const validFields = Object.keys(rules).filter((id) => rules[id](document.getElementById(id).value) === true).length;
+        const done = validFields + (consent.checked ? 1 : 0);
+        progress.setAttribute('aria-valuenow', String(done));
+        progressBar.style.width = (done / 4 * 100) + '%';
+        progressLabel.textContent = done + ' of 4 required fields completed';
+      }
+      function check(input) {
+        const res = rules[input.id](input.value);
+        const ok = res === true;
+        input.closest('.field').classList.toggle('has-error', !ok);
+        input.setAttribute('aria-invalid', ok ? 'false' : 'true');
+        input.closest('.field').querySelector('.error').textContent = ok ? '' : res;
+        return ok;
+      }
+      Object.keys(rules).forEach((id) => {
+        const inp = document.getElementById(id);
+        inp.addEventListener('blur', () => { if (inp.value) check(inp); });
+        inp.addEventListener('input', () => {
+          if (inp.closest('.field').classList.contains('has-error')) check(inp);
+          updateProgress();
+        });
+      });
+      consent.addEventListener('change', () => {
+        if (consent.checked) $('#consentError').textContent = '';
+        updateProgress();
+      });
+      updateProgress();
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        let ok = Object.keys(rules).map((id) => check(document.getElementById(id))).every(Boolean);
+        if (!consent.checked) { $('#consentError').textContent = 'Tick the box so our team can contact you.'; ok = false; }
+        if (!ok) { (form.querySelector('[aria-invalid="true"]') || consent).focus(); return; }
+
+        const data = Object.fromEntries(new FormData(form).entries());
+        data.project = 'Villa Enchante';
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+        try {
+          if (SITE.formEndpoint) {
+            const r = await fetch(SITE.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            if (!r.ok) throw new Error(r.status);
+          } else {
+            await new Promise((r) => setTimeout(r, 800));
+          }
+          $('#successText').textContent = 'Thank you, ' + data.name.trim().split(' ')[0] + '. The S&P team will call you on ' + data.phone.trim() + '.';
+          form.hidden = true;
+          $('#success').hidden = false;
+          toast('Call back requested');
+        } catch (err) {
+          toast('The request could not be sent. Check your connection and try again.');
+        } finally {
+          btn.disabled = false;
+          btn.textContent = 'Request a call back';
+        }
+      });
+
+      $('#againBtn').addEventListener('click', () => {
+        form.reset();
+        $$('.field', form).forEach((f) => f.classList.remove('has-error'));
+        $('#success').hidden = true;
+        form.hidden = false;
+        updateProgress();
+        $('#fName').focus();
+      });
+    }
+
+    /* ---------- Boot ---------- */
+    function init() {
+      renderHero();
+      renderStatic();
+      renderStats();
+      renderFeatures();
+      renderGallery();
+      renderAmenities();
+      renderLocation();
+      renderSpecs();
+      renderContact();
+      initDrone();
+      initIntroCarousel();
+      initPlanViewer();
+      initTheme();
+      initNav();
+      initLb();
+      initForm();
+      initScroll();
+      requestAnimationFrame(() => document.body.classList.add('loaded'));
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  })();
+  </script>
+</body>
+</html>
