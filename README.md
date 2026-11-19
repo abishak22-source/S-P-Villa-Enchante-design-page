@@ -37,7 +37,7 @@ Each page section in `index.html` starts with a descriptive HTML comment. Search
 
 Dynamic cards and paragraphs are built from the `window.SITE` data block in `index.html`. If you edit that block, change only the text or image value and keep its quotes and commas. For layout changes, edit the matching section markup and CSS instead.
 
-## CSS editing guide
+## CSS guide
 
 Open `css/style.css` and search for the selector you want to change:
 
