@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Villa Enchante | S&amp;P Foundation</title>
   <meta name="description" content="Villa Enchante by S&amp;P Foundation. Explore the villas, gallery, floor plans, amenities, location and specifications.">
-  <meta name="theme-color" content="#FFFFFF">
+  <meta name="theme-color" content="#F8F4EC">
 
   <!-- Favicon: S&P mark with gold corner (S at 16px, S&P at 32px and up) -->
   <link rel="icon" href="images/favicon.ico" sizes="any">
@@ -15,25 +15,39 @@
   <link rel="icon" type="image/png" sizes="512x512" href="images/icon-512.png">
   <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
 
-  <!-- Apply saved theme before paint -->
+  <!-- Critical pre-paint script: restore theme and intro state before CSS draws the page. -->
   <script>
     (function () {
       try {
         var t = localStorage.getItem('enchante-theme');
         if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
       } catch (e) {}
+      // Entrance curtain plays once per visit (per tab session)
+      try {
+        if (sessionStorage.getItem('enchante-intro')) document.documentElement.classList.add('no-intro');
+        else sessionStorage.setItem('enchante-intro', '1');
+      } catch (e) {}
     })();
   </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&family=Roboto:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <!-- Hero background loads first so it is the first thing visitors see -->
   <link rel="preload" as="image" href="images/villa-aerial-night-view-highres.webp" type="image/webp" fetchpriority="high">
 </head>
 
 <body>
+  <!-- Entrance curtain: pure CSS, lifts by itself even if scripts fail -->
+  <div class="page-intro" aria-hidden="true">
+    <div class="page-intro__inner">
+      <img src="images/sandp-logo-white.png" width="120" height="66" alt="">
+      <span class="page-intro__line"></span>
+      <span class="page-intro__name">Villa <em>Enchante</em></span>
+    </div>
+  </div>
+
   <a class="skip-link" href="#overview">Skip to content</a>
 
   <!-- ================= HEADER / NAVIGATION ================= -->
@@ -91,90 +105,82 @@
   <div class="drawer-scrim" id="scrim"></div>
 
   <main>
-    <!-- ================= INTRO: logo + compact enquiry form (theme colours) ================= -->
-    <section class="hero hero--split" id="home" aria-label="Villa Enchante">
-      <img class="intro__media is-active" id="heroSlideA" src="images/villa-aerial-night-view-highres.webp" width="2400" height="1185" alt="" aria-hidden="true" fetchpriority="high">
-      <img class="intro__media" id="heroSlideB" src="images/villa-aerial-night-view-highres.webp" width="2400" height="1185" alt="" aria-hidden="true" loading="lazy">
+    <!-- ================= HERO =================
+         Layout: aerial background, campaign art at left, enquiry form at right.
+         Images: this markup. Appearance/zoom: css/style.css -> Kelo hero / .kelo__art.
+         Form fields and IDs are connected to initForm() in the behavior script at the bottom of this file. -->
+    <section class="hero hero--split hero--kelo" id="home" aria-label="Villa Enchante">
+      <img class="intro__media is-active" src="images/villa-aerial-night-view-highres.webp" width="2400" height="1185" alt="" aria-hidden="true" fetchpriority="high">
       <div class="intro__scrim"></div>
-      <div class="container intro">
-        <h1 class="intro__brand fade-in" style="--d:.1s">
-          <img class="intro__campaign" id="introCampaign" src="images/villa-enchante-campaign.jpeg" width="1600" height="900" alt="Villa Enchante campaign: A Home That Grows With You. Every Storey Has a Story.">
-        </h1>
-          <section class="hero__enquiry intro__form fade-in" style="--d:.3s" id="enquiry" aria-label="Villa Enchante enquiry form">
-            <p class="kicker">Enquire now</p>
-            <h2 class="hero__form-title">Plan your visit</h2>
-            <p class="hero__form-note">Share your details and the S&amp;P team will get in touch.</p>
+      <div class="container kelo">
+        <figure class="kelo__art">
+          <img src="images/villa-enchante-campaign.jpeg" width="1600" height="900" alt="Villa Enchante campaign: A Home That Grows With You. Every Storey Has a Story." fetchpriority="high">
+        </figure>
 
-              <div class="form-progress-wrap field--extra">
-              <div class="form-progress" id="formProgress" role="progressbar" aria-label="Enquiry form completion" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0">
-                <span id="formProgressBar"></span>
-              </div>
-              <small id="formProgressLabel">0 of 4 required fields completed</small>
+        <!-- Enquiry form (id="enquiry"): the site's only form; every "Book a visit" link scrolls here -->
+        <section class="hero__enquiry intro__form" id="enquiry" aria-label="Villa Enchante enquiry form">
+          <p class="kicker"><span class="shiny">Enquire now</span></p>
+          <h2 class="hero__form-title" data-anim="split">Plan your visit</h2>
+          <p class="hero__form-note">Share your details and the S&amp;P team will get in touch.</p>
+
+            <div class="form-progress-wrap field--extra">
+            <div class="form-progress" id="formProgress" role="progressbar" aria-label="Enquiry form completion" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0">
+              <span id="formProgressBar"></span>
             </div>
+            <small id="formProgressLabel">0 of 4 required fields completed</small>
+          </div>
 
-            <form class="form" id="enquiryForm" novalidate>
-              <div class="form__grid">
-                <div class="field">
-                  <label for="fName">Full name</label>
-                  <input id="fName" name="name" type="text" autocomplete="name" placeholder="Your name" required>
-                  <small class="error" aria-live="polite"></small>
-                </div>
-                <div class="field">
-                  <label for="fPhone">Phone number</label>
-                  <input id="fPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+91" required>
-                  <small class="error" aria-live="polite"></small>
-                </div>
-                <div class="field">
-                  <label for="fEmail">Email address</label>
-                  <input id="fEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
-                  <small class="error" aria-live="polite"></small>
-                </div>
-                <div class="field field--extra">
-                  <label for="fInterest">Interested in</label>
-                  <select id="fInterest" name="interest">
-                    <option>Site visit</option>
-                    <option>Floor plans</option>
-                    <option>Master plan</option>
-                    <option>Price details</option>
-                    <option>General enquiry</option>
-                  </select>
-                </div>
-                <div class="field field--full field--extra">
-                  <label for="fMsg">Message <span class="optional">(optional)</span></label>
-                  <textarea id="fMsg" name="message" rows="2" placeholder="Tell us what you would like to know"></textarea>
-                </div>
+          <form class="form" id="enquiryForm" novalidate>
+            <div class="form__grid">
+              <div class="field">
+                <label for="fName">Full name</label>
+                <input id="fName" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+                <small class="error" aria-live="polite"></small>
               </div>
-              <label class="consent">
-                <input type="checkbox" id="fConsent" name="consent">
-                <span>I agree to be contacted by S&amp;P Foundation about Villa Enchante.</span>
-              </label>
-              <small class="error" id="consentError" aria-live="polite"></small>
-              <button class="btn btn--primary btn--wide" type="submit" id="submitBtn">Request a call back</button>
-            </form>
-
-            <div class="success" id="success" hidden>
-              <h3>Request received</h3>
-              <p id="successText"></p>
-              <button class="btn btn--outline" type="button" id="againBtn">Send another request</button>
+              <div class="field">
+                <label for="fPhone">Phone number</label>
+                <input id="fPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+91" required>
+                <small class="error" aria-live="polite"></small>
+              </div>
+              <div class="field">
+                <label for="fEmail">Email address</label>
+                <input id="fEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+                <small class="error" aria-live="polite"></small>
+              </div>
+              <div class="field field--extra">
+                <label for="fInterest">Interested in</label>
+                <select id="fInterest" name="interest">
+                  <option>Site visit</option>
+                  <option>Floor plans</option>
+                  <option>Master plan</option>
+                  <option>Price details</option>
+                  <option>General enquiry</option>
+                </select>
+              </div>
+              <div class="field field--full field--extra">
+                <label for="fMsg">Message <span class="optional">(optional)</span></label>
+                <textarea id="fMsg" name="message" rows="2" placeholder="Tell us what you would like to know"></textarea>
+              </div>
             </div>
-          </section>
-      </div>
-      <div class="intro__controls" role="group" aria-label="Project image slideshow controls">
-        <button class="intro__control" id="heroPrev" type="button" aria-label="Previous project image">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 5-7 7 7 7"/></svg>
-        </button>
-        <span class="intro__meter" aria-hidden="true"><span id="heroSlideMeter"></span></span>
-        <button class="intro__control intro__play" id="heroPlay" type="button" aria-label="Pause project images">
-          <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h3v14H8zM15 5h3v14h-3z"/></svg>
-          <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7z"/></svg>
-        </button>
-        <button class="intro__control" id="heroNext" type="button" aria-label="Next project image">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 5 7 7-7 7"/></svg>
-        </button>
+            <label class="consent">
+              <input type="checkbox" id="fConsent" name="consent">
+              <span>I agree to be contacted by S&amp;P Foundation about Villa Enchante.</span>
+            </label>
+            <small class="error" id="consentError" aria-live="polite"></small>
+            <button class="btn btn--primary btn--wide" type="submit" id="submitBtn">Request a call back</button>
+          </form>
+
+          <div class="success" id="success" hidden>
+            <h3>Request received</h3>
+            <p id="successText"></p>
+            <button class="btn btn--outline" type="button" id="againBtn">Send another request</button>
+          </div>
+        </section>
       </div>
     </section>
 
-    <!-- ================= PROJECT INTRODUCTION ================= -->
+    <!-- ================= 01. PROJECT OVERVIEW =================
+         Structure: this section. Text and image keys: the SITE data block below -> overview / images. -->
     <section class="section" id="overview">
       <div class="container split">
         <div class="split__text">
@@ -186,31 +192,62 @@
         </div>
         <div class="split__media intro-media reveal">
           <figure class="img-box intro-media__main"><img data-img="overview1" loading="lazy" alt="Rows of villas at Villa Enchante"></figure>
-          <figure class="img-box intro-media__small"><img data-img="overview2" loading="lazy" alt="Landscaped park at Villa Enchante"></figure>
+          <figure class="img-box intro-media__small"><img data-img="overview2" loading="lazy" alt="Living room at Villa Enchante"></figure>
+          <div class="intro-media__badge" aria-hidden="true">
+            <span>Villa</span>
+            <strong class="shiny">Enchante</strong>
+            <small>by S&amp;P Foundation</small>
+          </div>
+          <!-- Circular text seal, sits in the empty corner beside the arch -->
+          <div class="circ circ--seal" data-circ="Villa Enchante &#8226; S&amp;P Foundation &#8226; " aria-hidden="true">
+            <span class="circ__core">S&amp;P</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ================= ABOUT S&P ================= -->
+    <!-- ================= 02. ABOUT S&P =================
+         Structure: this section. Copy/photo data: the SITE data block below -> about / images.about. -->
     <section class="about" id="about">
       <div class="about__media">
-        <img data-img="about" data-parallax loading="lazy" alt="Villa Enchante clubhouse building">
+        <img data-img="about" data-parallax loading="lazy" alt="Type G villa at Villa Enchante, at night">
+        <span class="about__frame" aria-hidden="true"></span>
       </div>
       <div class="about__content">
         <p class="kicker reveal">About the developer</p>
-        <h2 class="h2 reveal">S&amp;P Foundation</h2>
-        <div class="body-text reveal" id="aboutText"></div>
+        <h2 class="h2 reveal" data-anim="blur">S&amp;P <em>Foundation</em></h2>
+        <div class="body-text reveal" id="aboutText" data-anim="scroll-reveal"></div>
         <a href="https://www.sandp.co.in/" target="_blank" rel="noopener" class="link-arrow reveal">Visit sandp.co.in</a>
       </div>
     </section>
 
-    <!-- ================= FEATURES ================= -->
+    <!-- ================= STATEMENT / VISUAL TRANSITION =================
+         Decorative text transition between About and Features; styled in css/style.css. -->
+    <div class="statement" id="statement">
+      <div class="statement__bg" aria-hidden="true"></div>
+      <div class="statement__frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="statement__inner reveal">
+        <p class="statement__eyebrow">S&amp;P Foundation</p>
+        <p class="statement__villa">Villa</p>
+        <p class="statement__word">Enchante</p>
+        <span class="statement__rule" aria-hidden="true"></span>
+        <p class="statement__line" data-anim="blur">Space, light and quiet. <em>A private world, made for you.</em></p>
+        <ul class="statement__notes">
+          <li>Privacy</li>
+          <li>Light</li>
+          <li>Comfort</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ================= 03. VILLA FEATURES =================
+         Cards are generated from the SITE data block below -> features by renderFeatures(). -->
     <section class="section" id="features">
       <div class="container">
         <div class="head reveal">
           <div>
             <p class="kicker">Villa features</p>
-            <h2 class="h2">Designed for everyday living</h2>
+            <h2 class="h2" data-anim="split">Designed for <em>everyday living</em></h2>
             <p class="section-copy">A villa community brings private home life together with shared outdoor spaces. Explore the features below, then contact the team to confirm current project details.</p>
           </div>
         </div>
@@ -218,23 +255,42 @@
       </div>
     </section>
 
-<!-- ================= AMENITIES ================= -->
-    <section class="section section--alt" id="amenities">
+    <!-- ================= 04. AMENITIES =================
+         Chapter content and image keys: the SITE data block below -> amenities / amenityViews. -->
+    <section class="section section--alt amenities" id="amenities">
+      <div class="amenities__decor" aria-hidden="true">
+        <span class="amenities__orb amenities__orb--a"></span>
+        <span class="amenities__orb amenities__orb--b"></span>
+        <span class="amenities__word">Community</span>
+      </div>
       <div class="container">
-        <p class="kicker reveal">Amenities</p>
-        <h2 class="h2 reveal">Shared spaces within the community</h2>
-        <p class="section-copy reveal">Shared facilities are planned to support fitness, play and time outdoors. Ask the project team which amenities are included and available.</p>
-        <div class="amenity-groups" id="amenityList"></div>
+        <div class="amenities__head">
+          <div class="amenities__heading">
+            <p class="kicker reveal">Amenities</p>
+            <h2 class="h2 reveal">Shared spaces <em>within the community</em></h2>
+          </div>
+          <div class="amenities__intro reveal">
+            <p class="section-copy">Shared facilities are planned to support fitness, play and time outdoors. Ask the project team which amenities are included and available.</p>
+            <div class="amenities__tally" id="amenityTally"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Curved loop: lifestyle lines flowing along a gentle arc. Drag to scrub it. -->
+      <div class="curved-loop" id="curvedLoop" data-text="A home that grows with you ✦ Fitness, play &amp; time outdoors ✦ Every storey has a story ✦ " aria-hidden="true"></div>
+      <div class="container">
+        <div class="amenity-showcase" id="amenityList"></div>
       </div>
     </section>
 
-<!-- ================= GALLERY ================= -->
+    <!-- ================= 05. GALLERY =================
+         Photos/captions/categories: the SITE data block below -> gallery. Lightbox is in the behavior script at the bottom of this file. -->
     <section class="section gallery-section" id="gallery">
+      <span class="gallery__word" aria-hidden="true">Gallery</span>
       <div class="container">
         <div class="head reveal">
           <div>
             <p class="kicker">Gallery</p>
-            <h2 class="h2">A closer look</h2>
+            <h2 class="h2" data-anim="float">A closer <em>look</em></h2>
             <p class="section-copy">Browse exterior and interior views for a feel of the homes and shared spaces. Select a category to focus the gallery, or open an image to view it larger.</p>
           </div>
           <div class="filters" id="filters" role="tablist" aria-label="Filter gallery"></div>
@@ -246,13 +302,14 @@
       </div>
     </section>
 
-<!-- ================= FLOOR PLANS ================= -->
+    <!-- ================= 06. FLOOR PLANS =================
+         Plan image is in images/; zoom and pan behavior is initPlanViewer() in the behavior script at the bottom of this file. -->
     <section class="section" id="floorplans">
       <div class="container">
         <div class="head reveal">
           <div>
             <p class="kicker">Floor plans</p>
-            <h2 class="h2">Layouts and sizes</h2>
+            <h2 class="h2">Layouts <em>and sizes</em></h2>
             <p class="section-copy">Explore the site plan, plot layout and villa types across the community.</p>
           </div>
         </div>
@@ -279,25 +336,29 @@
 
     
 
-    <!-- ================= MASTER PLAN ================= -->
+    <!-- ================= 07. MASTER PLAN =================
+         Copy/photo mapping: the SITE data block below -> masterPlan / images.masterplan. -->
     <section class="masterplan" id="masterplan">
       <div class="masterplan__bg"><img data-img="masterplan" data-parallax loading="lazy" alt="Aerial view of the Villa Enchante community layout"></div>
       <div class="container masterplan__content">
-        <p class="kicker kicker--light reveal">Master plan</p>
-        <h2 class="h2 h2--light reveal">See how the community is laid out</h2>
-        <p class="masterplan__text reveal" id="masterText"></p>
-        <div class="reveal">
-          <a href="#enquiry" class="btn btn--primary" data-interest="Master plan">Request the master plan</a>
+        <div class="masterplan__card">
+          <p class="kicker kicker--light reveal"><span class="shiny shiny--light">Master plan</span></p>
+          <h2 class="h2 h2--light reveal">See how the community <em>is laid out</em></h2>
+          <p class="masterplan__text reveal" id="masterText" data-anim="scroll-reveal"></p>
+          <div class="reveal">
+            <a href="#enquiry" class="btn btn--primary" data-interest="Master plan">Request the master plan</a>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ================= LOCATION ================= -->
+    <!-- ================= 08. LOCATION =================
+         Copy, map query, and connectivity: the SITE data block below -> location. -->
     <section class="section" id="location">
       <div class="container split">
         <div class="split__text">
           <p class="kicker reveal">Location</p>
-          <h2 class="h2 reveal">Location and connectivity</h2>
+          <h2 class="h2 reveal" data-anim="blur">Location <em>and connectivity</em></h2>
           <div class="body-text reveal" id="locationText"></div>
           <ul class="connect reveal" id="connectList"></ul>
           <a class="link-arrow reveal" id="mapLink" target="_blank" rel="noopener" href="#">Open in Google Maps</a>
@@ -308,34 +369,50 @@
       </div>
     </section>
 
-    <!-- ================= SPECIFICATIONS ================= -->
+    <!-- ================= 09. SPECIFICATIONS =================
+         Accordion data: the SITE data block below -> specifications; rendering: the behavior script at the bottom of this file. -->
     <section class="section section--alt" id="specifications">
       <div class="container specs-wrap">
         <div class="specs-head reveal">
           <p class="kicker">Specifications</p>
-          <h2 class="h2">Materials and finishes</h2>
+          <h2 class="h2">Materials <em>and finishes</em></h2>
           <p class="note">Review the listed finish categories. Confirm the final specifications with the project team before booking.</p>
+          <div class="spec-now" id="specNow" aria-hidden="true">
+            <span class="spec-now__count"><b class="spec-now__num">01</b><span class="spec-now__total">/ 06</span></span>
+            <span class="spec-now__label">Now viewing</span>
+            <span class="spec-now__title">Structure</span>
+          </div>
+          <figure class="specs-visual">
+            <img src="images/Kitchen.webp" width="1200" height="800" loading="lazy" alt="Kitchen interior at Villa Enchante">
+            <figcaption>Pictured · Kitchen</figcaption>
+          </figure>
         </div>
         <div class="specs" id="specList"></div>
       </div>
     </section>
 
-    <!-- ================= CONTACT ================= -->
+    <!-- ================= 10. CONTACT =================
+         Contact values: the SITE data block below -> contact; cards are rendered by the behavior script at the bottom of this file. -->
     <section class="section contact" id="contact">
       <div class="container">
         <div class="head reveal">
           <div>
             <p class="kicker">Contact</p>
-            <h2 class="h2">Get in touch</h2>
+            <h2 class="h2" data-anim="split">Get <em>in touch</em></h2>
             <p class="section-copy">Choose a contact option below, open the project location, or send an enquiry to arrange a site visit.</p>
           </div>
+          <!-- Circular text call to action -->
+          <a href="#enquiry" class="circ circ--cta" data-interest="Site visit" data-circ="Book a site visit &#8226; Plan your visit &#8226; " aria-label="Book a site visit">
+            <span class="circ__core" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          </a>
         </div>
         <div class="contact__row" id="contactRow"></div>
       </div>
     </section>
   </main>
 
-  <!-- ================= FOOTER ================= -->
+  <!-- ================= FOOTER =================
+       Footer structure/styles live here and in css/style.css; keep it separate from main sections. -->
   <footer class="footer">
     <div class="container">
       <img class="footer__brand-logo" src="images/sandp-logo-white.png" width="120" height="66" alt="S&amp;P Aspirational Spaces">
@@ -362,17 +439,11 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <!-- Editable content is in window.SITE below. The rest of this script powers forms, navigation, gallery, plans, and motion. Keep behavior code unchanged when editing page content. -->
   <script>
-  /* =====================================================================
-     CONTENT
-     Website photos use the local reference images in images/ only.
-  ===================================================================== */
-  const SITE = {
-    hero: {
-      text: 'Villas by S&P Foundation, planned for privacy, natural light and everyday comfort.'
-      // Hero background image: css/style.css -> .hero__bg
-    },
-
+/* EDIT CONTENT AND IMAGE PATHS in this data block. Keep commas and quotes as shown. */
+window.SITE = {
+    // Reusable local image paths assigned to data-img attributes in index.html.
     images: {
       overview1:  ['images/villa-evening-revised.jpeg'],
       overview2:  ['images/living-room.webp'],
@@ -380,6 +451,7 @@
       masterplan: ['images/Villa-typeB-Aerial-revised.webp']
     },
 
+    // Project overview copy and optional animated statistics.
     overview: {
       title: 'Villa living by S&P Foundation',
       paragraphs: [
@@ -390,11 +462,13 @@
       stats: []
     },
 
+    // About section paragraphs.
     about: [
       'S&P Foundation is a real estate developer building residential apartments and villa communities.',
       'The company focuses on construction quality, transparent documentation and dependable customer service, from booking through to handover.'
     ],
 
+    // Feature cards: icon key, title, image path, and short description.
     features: [
       { icon: 'home',  title: 'Independent villas', img: 'images/Villa-Type-A1-Front-Night-View.webp',     text: 'Homes planned as standalone villas with private entrances.' },
       { icon: 'sun',   title: 'Light and ventilation', img: 'images/Open-to-Deck.webp',  text: 'Room layouts oriented to bring in daylight and cross ventilation.' },
@@ -404,6 +478,7 @@
       { icon: 'key',   title: 'Quality construction', img: 'images/Kitchen.webp',   text: 'Built with carefully selected materials and finishes.' }
     ],
 
+    // Gallery cards: image path, caption, and filter category.
     gallery: [
       { img: ['images/Villa-Type-A1-Front-Night-View.webp'], caption: 'Type A1 villa, front at night', cat: 'Villas' },
       { img: ['images/living-room.webp'], caption: 'Living room', cat: 'Interiors' },
@@ -435,36 +510,68 @@
       { img: ['images/villa-evening-revised.jpeg'], caption: 'Villas in the evening', cat: 'Villas' }
     ],
 
-    // Amenities, grouped. icon = a key of the ICON map below
+    // Named amenity photos. `cap` describes the photo shown in the amenity viewer.
+    amenityViews: {
+      club:      { src: 'images/club-night.webp',                          cap: 'Clubhouse at night' },
+      courtyard: { src: 'images/Villa-landscape-twilight-highres.webp',    cap: 'Landscaped courtyard at twilight' },
+      walkway:   { src: 'images/Walkway.webp',                             cap: 'Landscaped walkway' },
+      garden:    { src: 'images/inside-landscape-view-villas-highres.webp', cap: 'Garden between the villas' },
+      courts:    { src: 'images/Basket-Ball-Tennis-Court.webp',            cap: 'Basketball and tennis courts' },
+      tennis:    { src: 'images/cam5.webp',                                cap: 'Tennis court' },
+      gazebo:    { src: 'images/cam6.webp',                                cap: 'Gazebo and lawn' }
+    },
+
+    // Amenities grouped by chapter. `view` points to amenityViews; `pos`/`zoom` crop mosaic tiles.
     amenities: [
       {
         title: 'Clubhouse Amenities',
+        zone: 'Clubhouse',
+        chapter: 'The Clubhouse',
+        intro: 'Indoor spaces for fitness, games and gatherings, under one roof within the community.',
+        mosaic: [
+          { view: 'club' },
+          { view: 'club', pos: '18% 62%', zoom: 1.9 },
+          { view: 'club', pos: '82% 38%', zoom: 1.9 }
+        ],
         items: [
-          { icon: 'hall',  name: 'Multipurpose Hall' },
-          { icon: 'gym',   name: 'Gymnasium' },
-          { icon: 'dice',  name: 'Indoor Games Room' }
+          { icon: 'hall',  name: 'Multipurpose Hall', view: 'club' },
+          { icon: 'gym',   name: 'Gymnasium',         view: 'club' },
+          { icon: 'dice',  name: 'Indoor Games Room', view: 'club' }
         ]
       },
       {
         title: 'OSR Amenities',
+        zone: 'Open space',
+        chapter: 'The Open Spaces',
+        intro: 'Courts, lawns, walkways and play areas set out in the open space reserved within the community.',
+        mosaic: [
+          { view: 'courtyard' },
+          { view: 'courts' },
+          { view: 'gazebo' },
+          { view: 'walkway' },
+          { view: 'garden' },
+          { view: 'tennis' }
+        ],
         items: [
-          { icon: 'plaza',    name: 'Plaza with concentric paving' },
-          { icon: 'walkway',  name: 'Walkway' },
-          { icon: 'slide',    name: "Children's play area" },
-          { icon: 'football', name: 'Futsal court' },
-          { icon: 'paddle',   name: 'Pickleball / multipurpose court' },
-          { icon: 'cricket',  name: 'Cricket pitch' },
-          { icon: 'stones',   name: 'Steppingstone path with grass joint' },
-          { icon: 'bench',    name: 'Seating area' },
-          { icon: 'yoga',     name: 'Yoga lawn / party lawn' },
-          { icon: 'gazebo',   name: 'Gazebo' },
-          { icon: 'planter',  name: 'Stepped planter' }
+          { icon: 'plaza',    name: 'Plaza with concentric paving',        view: 'courtyard' },
+          { icon: 'walkway',  name: 'Walkway',                             view: 'walkway' },
+          { icon: 'slide',    name: "Children's play area",                view: 'garden' },
+          { icon: 'football', name: 'Futsal court',                        view: 'courts' },
+          { icon: 'paddle',   name: 'Pickleball / multipurpose court',     view: 'tennis' },
+          { icon: 'cricket',  name: 'Cricket pitch',                       view: 'courts' },
+          { icon: 'stones',   name: 'Steppingstone path with grass joint', view: 'walkway' },
+          { icon: 'bench',    name: 'Seating area',                        view: 'gazebo' },
+          { icon: 'yoga',     name: 'Yoga lawn / party lawn',              view: 'garden' },
+          { icon: 'gazebo',   name: 'Gazebo',                              view: 'gazebo' },
+          { icon: 'planter',  name: 'Stepped planter',                     view: 'courtyard' }
         ]
       }
     ],
 
-      masterPlan: 'The master plan shows how villas, internal roads, open spaces and shared amenities are arranged across the community. Request the latest project plan from the S&P team and discuss the layout before arranging a visit.',
+    // Master plan section copy.
+    masterPlan: 'The master plan shows how villas, internal roads, open spaces and shared amenities are arranged across the community. Request the latest project plan from the S&P team and discuss the layout before arranging a visit.',
 
+    // Location paragraph, map search text, and optional nearby places.
     location: {
       text: 'Use the map to find Villa Enchante and plan a route for your visit. Contact the S&P team to confirm an appointment and ask for current directions or nearby landmarks.',
       mapQuery: 'S&P Villa Enchante',
@@ -472,6 +579,7 @@
       connectivity: []
     },
 
+    // Specifications accordion headings and bullet points.
     specifications: [
       { title: 'Structure',        items: ['RCC framed structure designed for the local seismic zone', 'Masonry walls with plastered finish'] },
       { title: 'Flooring',         items: ['Vitrified tiles in living, dining and bedrooms', 'Anti-skid tiles in bathrooms, balconies and utility areas'] },
@@ -481,6 +589,7 @@
       { title: 'Electrical',       items: ['Concealed copper wiring with modular switches', 'Provision for air conditioning in bedrooms'] }
     ],
 
+    // Contact details. Empty values hide optional contact links.
     contact: {
       phone: '',           // e.g. '+91 00000 00000'
       email: '',           // e.g. 'sales@example.com'
@@ -489,15 +598,16 @@
       rera: ''             // not displayed anywhere at the moment
     },
 
-   formEndpoint: 'https://script.google.com/macros/s/AKfycbzk4oVIT30q4Cy8PViOr7CyEH2sxbKEfU4rkEzOopoy2wSgK3F03ODQGBCJxzfuxefe/exec'
-          // optional URL that accepts a JSON POST
+    // Form destination. Keep this endpoint unless the enquiry receiver changes.
+    formEndpoint: 'https://script.google.com/macros/s/AKfycbzk4oVIT30q4Cy8PViOr7CyEH2sxbKEfU4rkEzOopoy2wSgK3F03ODQGBCJxzfuxefe/exec'
   };
 
-  /* =====================================================================
-     APP
-  ===================================================================== */
-  (function () {
+    /* ================= PAGE BEHAVIOR: keep this section intact when editing content ================= */
+(function () {
     'use strict';
+
+    // Shared configuration loaded first from the SITE data block below.
+    const SITE = window.SITE;
 
     const $  = (s, r) => (r || document).querySelector(s);
     const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
@@ -567,13 +677,9 @@
       if (text !== undefined) n.textContent = text;
       return n;
     }
+    const pad2 = (num) => String(num).padStart(2, '0');
 
     /* ---------- Render ---------- */
-    function renderHero() {
-      const t = $('#heroText');
-      if (t) t.textContent = SITE.hero.text;
-    }
-
     function renderStatic() {
       $$('[data-img]').forEach((img) => setImg(img, SITE.images[img.dataset.img], 1400));
       $('#overviewTitle').textContent = SITE.overview.title;
@@ -602,6 +708,7 @@
       SITE.features.forEach((f, i) => {
         const it = make('div', 'feature reveal');
         it.style.setProperty('--d', (i % 3) * 0.08 + 's');
+        it.dataset.spot = '';
         const ic = make('span', 'feature__icon');
         ic.innerHTML = svg(f.icon);
         if (f.img) {
@@ -614,7 +721,7 @@
           fig.appendChild(im);
           const body = make('div', 'feature__body');
           body.append(ic, make('h3', 'feature__title', f.title), make('p', 'feature__text', f.text));
-          it.append(fig, body);
+          it.append(fig, make('span', 'feature__num', pad2(i + 1)), body);
         } else {
           it.append(ic, make('h3', 'feature__title', f.title), make('p', 'feature__text', f.text));
         }
@@ -632,7 +739,12 @@
       // Mark which tiles are past the first 6 of the current filter; label the button
       function layout() {
         const vis = $$('.g-item:not(.is-hidden)', grid);
-        vis.forEach((it, i) => it.classList.toggle('is-extra', i >= LIMIT));
+        vis.forEach((it, i) => {
+          it.classList.toggle('is-extra', i >= LIMIT);
+          // Editorial mosaic: every 6th visible photo is a large tile, alternating sides
+          it.classList.toggle('g-item--lg', i % 6 === 0);
+          it.classList.toggle('g-item--right', i % 12 === 6);
+        });
         grid.classList.toggle('is-compact', !expanded);
         toggle.parentElement.hidden = vis.length <= LIMIT;
         toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
@@ -689,22 +801,164 @@
       layout();
     }
 
+    /* Amenities: "resort journal" template.
+       Each category (Clubhouse / Open spaces) is a chapter, chosen from an editorial tab bar.
+       A chapter = an asymmetric photo mosaic + a typographic menu of its amenities.
+       Pointing at or tapping an amenity lights up the photo that shows it. */
     function renderAmenities() {
       const box = $('#amenityList');
-      SITE.amenities.forEach((g) => {
-        const group = make('div', 'amenity-group');
-        const ul = make('ul', 'amenity-cards' + (g.items.length <= 3 ? ' amenity-cards--3' : ''));
-        g.items.forEach((a, i) => {
-          const li = make('li', 'amenity-card reveal');
-          li.style.setProperty('--d', (i % 4) * 0.06 + 's');
-          const ic = make('span', 'amenity-card__icon');
+      const views = SITE.amenityViews || {};
+      const groups = SITE.amenities;
+      const total = groups.reduce((sum, g) => sum + g.items.length, 0);
+      if (!total) return;
+
+      // Tally: both numbers come straight from the data above
+      const tally = $('#amenityTally');
+      if (tally) {
+        [[total, 'Shared amenities'], [groups.length, 'Community zones']].forEach(([num, label]) => {
+          const d = make('div', 'amenities__stat');
+          const numEl = make('span', 'amenities__stat-num', pad2(num));
+          numEl.dataset.count = num;          // Count Up: genuine figure, counted from the data
+          numEl.dataset.pad = '1';
+          d.append(numEl, make('span', 'amenities__stat-label', label));
+          tally.appendChild(d);
+        });
+      }
+
+      // Chapter tabs
+      const nav = make('div', 'amen-nav reveal');
+      nav.setAttribute('role', 'tablist');
+      nav.setAttribute('aria-label', 'Amenity categories');
+      const ink = make('span', 'amen-nav__ink');
+      ink.setAttribute('aria-hidden', 'true');
+      const panelsWrap = make('div', 'amen-panels reveal');
+      const tabs = [], panels = [];
+      let n = 0;
+
+      groups.forEach((g, gi) => {
+        const letter = String.fromCharCode(65 + gi);
+        const tab = make('button', 'amen-tab');
+        tab.type = 'button';
+        tab.id = 'amenTab' + gi;
+        tab.setAttribute('role', 'tab');
+        tab.setAttribute('aria-controls', 'amenPanel' + gi);
+        tab.append(
+          make('span', 'amen-tab__mark', letter),
+          make('span', 'amen-tab__label', g.chapter || g.title),
+          make('span', 'amen-tab__count', pad2(g.items.length) + (g.items.length === 1 ? ' space' : ' spaces'))
+        );
+        tab.addEventListener('click', () => select(gi, false));
+        tabs.push(tab);
+        nav.appendChild(tab);
+
+        const panel = make('div', 'amen-panel ' + ((g.mosaic || []).length <= 3 ? 'amen-panel--trio' : 'amen-panel--six'));
+        panel.id = 'amenPanel' + gi;
+        panel.setAttribute('role', 'tabpanel');
+        panel.setAttribute('aria-labelledby', tab.id);
+
+        // Asymmetric photo mosaic
+        const mosaic = make('div', 'amen-mosaic');
+        const tiles = [];
+        (g.mosaic || []).forEach((m, mi) => {
+          const v = views[m.view];
+          if (!v) return;
+          const fig = make('figure', 'amen-tile');
+          fig.dataset.view = m.view;
+          fig.style.setProperty('--t', mi);
+          const img = make('img');
+          img.alt = m.zoom ? '' : v.cap;        // detail crops repeat a photo, so they stay silent
+          img.loading = 'lazy';
+          img.decoding = 'async';
+          img.src = v.src;
+          if (m.pos) { img.style.objectPosition = m.pos; img.style.transformOrigin = m.pos; }
+          if (m.zoom) img.style.setProperty('--z', m.zoom);
+          const cap = make('figcaption', 'amen-tile__cap');
+          cap.setAttribute('aria-hidden', 'true');
+          cap.append(make('span', 'amen-tile__name'), make('span', 'amen-tile__view', (m.zoom ? 'Detail · ' : 'Pictured · ') + v.cap));
+          fig.append(img, cap);
+          tiles.push(fig);
+          mosaic.appendChild(fig);
+        });
+
+        // Typographic amenity menu
+        const menu = make('div', 'amen-menu');
+        menu.append(
+          make('span', 'amen-menu__kicker', 'Chapter ' + letter + ' · ' + (g.zone || g.title)),
+          make('h3', 'amen-menu__title', g.chapter || g.title),
+          make('p', 'amen-menu__intro', g.intro || '')
+        );
+        const ul = make('ul', 'amen-menu__list');
+        const entries = [];
+        g.items.forEach((a) => {
+          const li = make('li', 'amen-entry');
+          const ic = make('span', 'amen-entry__icon');
           ic.innerHTML = svg(a.icon);
-          li.append(ic, make('span', 'amenity-card__name', a.name));
+          li.append(make('span', 'amen-entry__num', pad2(++n)), make('span', 'amen-entry__name', a.name), ic);
+          const light = () => {
+            panel.classList.add('is-focusing');
+            entries.forEach((e) => e.classList.toggle('is-on', e === li));
+            tiles.forEach((t) => {
+              const on = t.dataset.view === a.view;
+              t.classList.toggle('is-lit', on);
+              if (on) t.querySelector('.amen-tile__name').textContent = a.name;
+            });
+          };
+          li.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') light(); });
+          li.addEventListener('click', light);
+          entries.push(li);
           ul.appendChild(li);
         });
-        group.append(make('h3', 'amenity-group__title reveal', g.title), ul);
-        box.appendChild(group);
+        ul.addEventListener('pointerleave', (e) => {
+          if (e.pointerType !== 'mouse') return;
+          panel.classList.remove('is-focusing');
+          entries.forEach((x) => x.classList.remove('is-on'));
+          tiles.forEach((t) => t.classList.remove('is-lit'));
+        });
+        menu.appendChild(ul);
+
+        panel.append(mosaic, menu);
+        panels.push(panel);
+        panelsWrap.appendChild(panel);
       });
+      nav.appendChild(ink);
+      box.append(nav, panelsWrap);
+
+      let current = -1;
+      function moveInk() {
+        const t = tabs[current];
+        if (!t) return;
+        ink.style.width = t.offsetWidth + 'px';
+        ink.style.transform = 'translateX(' + t.offsetLeft + 'px)';
+      }
+      function select(i, moveFocus) {
+        if (i === current) return;
+        current = i;
+        tabs.forEach((t, j) => {
+          const on = j === i;
+          t.classList.toggle('is-active', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          t.tabIndex = on ? 0 : -1;
+        });
+        panels.forEach((p, j) => {
+          const on = j === i;
+          p.hidden = !on;
+          p.classList.remove('is-entering', 'is-focusing');
+          if (on) { void p.offsetWidth; p.classList.add('is-entering'); }
+        });
+        moveInk();
+        if (moveFocus) tabs[i].focus();
+      }
+      // Arrow keys move between chapters (standard tab pattern)
+      nav.addEventListener('keydown', (e) => {
+        const keys = { ArrowRight: 1, ArrowLeft: -1, Home: 'first', End: 'last' };
+        if (!(e.key in keys)) return;
+        e.preventDefault();
+        const k = keys[e.key];
+        select(k === 'first' ? 0 : k === 'last' ? tabs.length - 1 : (current + k + tabs.length) % tabs.length, true);
+      });
+      window.addEventListener('resize', moveInk);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(moveInk);
+      select(0, false);
     }
 
     function renderLocation() {
@@ -727,29 +981,64 @@
       });
     }
 
+    /* Specifications: a single-open accordion.
+       One shared state (openIndex) decides which item is open. Opening an item closes
+       the previous one; clicking the open item closes it (openIndex = -1). */
     function renderSpecs() {
       const box = $('#specList');
-      SITE.specifications.forEach((s, i) => {
-        const item = make('div', 'spec' + (i === 0 ? ' is-open' : ''));
+      const list = SITE.specifications;
+      const now = $('#specNow');
+      const rows = [];
+      let openIndex = 0;
+
+      list.forEach((s, i) => {
+        const item = make('div', 'spec');
+        const h = make('h3', 'spec__heading');
         const btn = make('button', 'spec__btn');
         btn.type = 'button';
-        btn.setAttribute('aria-expanded', i === 0 ? 'true' : 'false');
+        btn.id = 'specBtn' + i;
         btn.setAttribute('aria-controls', 'spec' + i);
-        btn.append(make('span', '', s.title), make('span', 'spec__sign'));
+        btn.append(
+          make('span', 'spec__title', s.title),
+          make('span', 'spec__meta', pad2(s.items.length) + (s.items.length === 1 ? ' detail' : ' details')),
+          make('span', 'spec__sign')
+        );
+        h.appendChild(btn);
         const body = make('div', 'spec__body');
         body.id = 'spec' + i;
+        body.setAttribute('role', 'region');
+        body.setAttribute('aria-labelledby', btn.id);
         const inner = make('div', 'spec__inner');
         const ul = make('ul');
         s.items.forEach((t) => ul.appendChild(make('li', '', t)));
         inner.appendChild(ul);
         body.appendChild(inner);
-        btn.addEventListener('click', () => {
-          const open = item.classList.toggle('is-open');
-          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        });
-        item.append(btn, body);
+        btn.addEventListener('click', () => setOpen(openIndex === i ? -1 : i));
+        item.append(h, body);
         box.appendChild(item);
+        rows.push({ item, btn, body });
       });
+
+      function setOpen(i) {
+        openIndex = i;
+        rows.forEach((r, j) => {
+          const open = j === openIndex;
+          r.item.classList.toggle('is-open', open);
+          r.btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+          r.body.inert = !open;                  // closed panels: not focusable or read out
+        });
+        if (now) {
+          const has = openIndex >= 0;
+          now.classList.toggle('is-empty', !has);
+          $('.spec-now__num', now).textContent = has ? pad2(openIndex + 1) : '--';
+          $('.spec-now__title', now).textContent = has ? list[openIndex].title : 'Select a category';
+          now.classList.remove('is-swap');
+          void now.offsetWidth;
+          now.classList.add('is-swap');
+        }
+      }
+      if (now) $('.spec-now__total', now).textContent = '/ ' + pad2(list.length);
+      setOpen(0);
     }
 
     function renderContact() {
@@ -765,6 +1054,7 @@
       cards.forEach((c, i) => {
         const el = make(c.href ? 'a' : 'div', 'contact__item reveal');
         el.style.setProperty('--d', i * 0.06 + 's');
+        el.dataset.spot = '';
         if (c.href) el.href = c.href;
         if (c.ext) { el.target = '_blank'; el.rel = 'noopener'; }
         const ic = make('span', 'contact__icon');
@@ -800,103 +1090,6 @@
         if (!raf) raf = requestAnimationFrame(tick);
       });
       hero.addEventListener('pointerleave', () => { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(tick); });
-    }
-
-    /* ---------- Cinematic project image sequence ---------- */
-    function initIntroCarousel() {
-      const hero = $('.hero--split');
-      const layers = [$('#heroSlideA'), $('#heroSlideB')];
-      const meter = $('#heroSlideMeter');
-      const pause = $('#heroPlay');
-      if (!hero || !layers[0] || !layers[1] || !meter || !pause) return;
-
-      const photos = [
-        'images/villa-aerial-night-view-highres.webp',
-        'images/Villa-Type-A1-Front-Night-View.webp',
-        'images/Villa-typeB-Aerial-revised.webp',
-        'images/villa-evening-revised.jpeg'
-      ];
-      const delay = 6800;
-      let index = 0, activeLayer = 0, timer = 0, heroVisible = true, requestId = 0;
-      let paused = reduce;
-      let startedAt = 0, remaining = delay, meterAnimation = null;
-
-      function updateControls() {
-        pause.classList.toggle('is-paused', paused);
-        pause.setAttribute('aria-label', paused ? 'Play project images' : 'Pause project images');
-        pause.setAttribute('aria-pressed', paused ? 'true' : 'false');
-      }
-      function stopTimer() {
-        clearTimeout(timer);
-        timer = 0;
-        if (meterAnimation) meterAnimation.pause();
-        if (startedAt) remaining = Math.max(0, remaining - (performance.now() - startedAt));
-        startedAt = 0;
-      }
-      function runTimer() {
-        clearTimeout(timer);
-        if (paused || !heroVisible || document.hidden) return;
-        if (!remaining) remaining = delay;
-        startedAt = performance.now();
-        if (meterAnimation) meterAnimation.play();
-        timer = window.setTimeout(() => show(index + 1), remaining);
-      }
-      function resetMeter() {
-        if (meterAnimation) meterAnimation.cancel();
-        meter.style.transform = 'scaleX(0)';
-        meterAnimation = meter.animate(
-          [{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }],
-          { duration: delay, easing: 'linear', fill: 'forwards' }
-        );
-        if (paused || !heroVisible || document.hidden) meterAnimation.pause();
-        else startedAt = performance.now();
-        remaining = delay;
-      }
-      function show(nextIndex) {
-        stopTimer();
-        const thisRequest = ++requestId;
-        const target = (nextIndex + photos.length) % photos.length;
-        const layerIndex = 1 - activeLayer;
-        const preload = new Image();
-        preload.onload = () => {
-          if (thisRequest !== requestId) return;
-          layers[layerIndex].src = photos[target];
-          requestAnimationFrame(() => {
-            if (thisRequest !== requestId) return;
-            layers[layerIndex].classList.add('is-active');
-            layers[activeLayer].classList.remove('is-active');
-            activeLayer = layerIndex;
-            index = target;
-            resetMeter();
-            runTimer();
-          });
-        };
-        preload.onerror = () => { remaining = delay; runTimer(); };
-        preload.src = photos[target];
-      }
-
-      $('#heroPrev').addEventListener('click', () => show(index - 1));
-      $('#heroNext').addEventListener('click', () => show(index + 1));
-      pause.addEventListener('click', () => {
-        paused = !paused;
-        updateControls();
-        if (paused) stopTimer();
-        else runTimer();
-      });
-      document.addEventListener('visibilitychange', () => {
-        if (document.hidden) stopTimer();
-        else runTimer();
-      });
-      if ('IntersectionObserver' in window) {
-        new IntersectionObserver(([entry]) => {
-          heroVisible = entry.isIntersecting;
-          if (heroVisible) runTimer(); else stopTimer();
-        }, { threshold: 0.05 }).observe(hero);
-      }
-
-      updateControls();
-      resetMeter();
-      runTimer();
     }
 
     /* ---------- Site plan viewer ---------- */
@@ -995,7 +1188,7 @@
       function apply(t, save) {
         document.documentElement.setAttribute('data-theme', t);
         btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
-        meta.setAttribute('content', t === 'dark' ? '#121212' : '#FFFFFF');
+        meta.setAttribute('content', t === 'dark' ? '#12110F' : '#F8F4EC');
         if (save) { try { localStorage.setItem('enchante-theme', t); } catch (e) {} }
       }
       apply(document.documentElement.getAttribute('data-theme') || 'light', false);
@@ -1024,6 +1217,7 @@
 
       function setOpen(open) {
         document.body.classList.toggle('drawer-open', open);
+        if (open) header.classList.remove('is-hidden');
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
         drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
@@ -1035,8 +1229,15 @@
       window.addEventListener('resize', () => { if (window.innerWidth >= 1200) setOpen(false); });
 
       const progress = $('#scrollProgress');
+      // Header steps aside while reading down the page and returns on any scroll up
+      let lastY = window.scrollY;
       const onScroll = () => {
-        header.classList.toggle('is-solid', window.scrollY > 40);
+        const y = window.scrollY;
+        header.classList.toggle('is-solid', y > 40);
+        const goingDown = y > lastY + 4, goingUp = y < lastY - 4;
+        if (goingDown && y > 520 && !document.body.classList.contains('drawer-open')) header.classList.add('is-hidden');
+        else if (goingUp || y <= 520) header.classList.remove('is-hidden');
+        if (goingDown || goingUp) lastY = y;
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
         progress.style.transform = 'scaleX(' + (maxScroll > 0 ? window.scrollY / maxScroll : 0) + ')';
       };
@@ -1098,6 +1299,261 @@
       window.addEventListener('scroll', () => { if (!busy) { busy = true; requestAnimationFrame(update); } }, { passive: true });
       window.addEventListener('resize', update);
       update();
+    }
+
+    /* =====================================================================
+       MOTION KIT
+       Vanilla JS + CSS takes on the React Bits text animations. Each one is
+       opted in from the markup with data-anim, and everything is scoped to
+       <main>, so the header and footer are never touched.
+         (default .h2)          Masked words: each word rises out of its own mask
+         data-anim="split"      Split Text: characters rise and settle in sequence
+         data-anim="blur"       Blur Text: words sharpen in from a soft blur
+         data-anim="float"      Scroll Float: characters float up, scrubbed by scroll
+         data-anim="scroll-reveal"  Scroll Reveal: words brighten as you read down
+         data-circ="..."        Circular Text: a slowly turning ring of text
+         #curvedLoop            Curved Loop: draggable text flowing along an arc
+         data-count="n"         Count Up (only for numbers taken from SITE data)
+       With reduced motion, text is left untouched and fully visible.
+    ===================================================================== */
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
+
+    // Wrap words (and optionally characters) in spans, keeping inline children like <em>.
+    // Headings keep their text for screen readers via aria-label; other elements get a
+    // visually hidden copy, and the animated spans are hidden from assistive tech.
+    function splitText(el, byChars) {
+      const label = el.textContent.replace(/\s+/g, ' ').trim();
+      const units = [];
+      (function walk(node) {
+        Array.from(node.childNodes).forEach((c) => {
+          if (c.nodeType === 3) {
+            const frag = document.createDocumentFragment();
+            c.textContent.split(/(\s+)/).forEach((part) => {
+              if (!part) return;
+              if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+              const w = make('span', 'w');
+              w.setAttribute('aria-hidden', 'true');
+              if (byChars) Array.from(part).forEach((ch) => { const s = make('span', 'c', ch); units.push(s); w.appendChild(s); });
+              else { const s = make('span', '', part); units.push(s); w.appendChild(s); }
+              frag.appendChild(w);
+            });
+            node.replaceChild(frag, c);
+          } else if (c.nodeType === 1 && !c.classList.contains('sr-only')) walk(c);
+        });
+      })(el);
+      units.forEach((u, i) => u.style.setProperty('--i', i));
+      if (/^H[1-6]$/.test(el.tagName)) el.setAttribute('aria-label', label);
+      else el.prepend(make('span', 'sr-only', label));
+      el._units = units;
+      return units;
+    }
+
+    const scrubFloat = [], scrubReveal = [];
+    function initTextMotion() {
+      if (reduce) return;
+      $$('main [data-anim], main .h2').forEach((el) => {
+        if (el.dataset.split) return;
+        const kind = el.dataset.anim || (el.closest('.reveal') ? 'mask' : '');
+        if (!kind) return;
+        el.dataset.split = kind;
+        if (kind === 'scroll-reveal') {
+          (el.matches('p') ? [el] : $$('p', el)).forEach((p) => {
+            splitText(p, false);
+            p.classList.add('anim-scroll-reveal');
+            scrubReveal.push(p);
+          });
+          return;
+        }
+        splitText(el, kind === 'split' || kind === 'float');
+        el.classList.add(kind === 'mask' ? 'is-split' : 'anim-' + kind);
+        if (kind === 'float') scrubFloat.push(el);
+        // Make sure the reveal observer marks it .in (when it is not already inside a .reveal)
+        if (!el.closest('.reveal')) el.classList.add('reveal');
+      });
+    }
+
+    // Scroll-scrubbed effects + the statement's image drift share one rAF-throttled handler
+    function initScrub() {
+      const statement = $('#statement');
+      if (reduce) return;
+      let busy = false;
+      function update() {
+        busy = false;
+        const vh = window.innerHeight;
+        scrubFloat.forEach((el) => {
+          const r = el.getBoundingClientRect();
+          if (r.bottom < -80 || r.top > vh + 80) return;
+          const p = clamp01((vh * 0.95 - r.top) / (vh * 0.5));
+          const n = el._units.length;
+          el._units.forEach((u, i) => {
+            const t = Math.round(clamp01(p * 1.8 - (i / n) * 0.8) * 100) / 100;
+            if (u._t === t) return;
+            u._t = t;
+            const k = 1 - t;
+            u.style.opacity = t;
+            u.style.transform = 'translate3d(0,' + (k * 110).toFixed(1) + '%,0) scale(' + (1 - k * 0.25).toFixed(3) + ',' + (1 + k * 0.7).toFixed(3) + ')';
+          });
+        });
+        scrubReveal.forEach((el) => {
+          const r = el.getBoundingClientRect();
+          if (r.bottom < -80 || r.top > vh + 80) return;
+          const p = clamp01((vh * 0.9 - r.top) / (vh * 0.5));
+          const n = el._units.length;
+          el._units.forEach((u, i) => {
+            const t = Math.round(clamp01(p * 1.15 * n - i) * 100) / 100;
+            if (u._t === t) return;
+            u._t = t;
+            u.style.opacity = (0.16 + 0.84 * t).toFixed(2);
+          });
+        });
+        if (statement) {
+          const r = statement.getBoundingClientRect();
+          if (r.bottom > 0 && r.top < vh) statement.style.setProperty('--p', clamp01((vh - r.top) / (vh + r.height)).toFixed(3));
+        }
+      }
+      window.addEventListener('scroll', () => { if (!busy) { busy = true; requestAnimationFrame(update); } }, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    }
+
+    // Count Up: animates numbers that come from SITE data when they scroll into view
+    function initCounters() {
+      const els = $$('main [data-count]');
+      if (!els.length || reduce || !('IntersectionObserver' in window)) return;   // text is already final
+      const fmt = (el, v) => (el.dataset.pad ? pad2(v) : String(v));
+      els.forEach((el) => { el.textContent = fmt(el, 0); });
+      const io = new IntersectionObserver((es, o) => es.forEach((e) => {
+        if (!e.isIntersecting) return;
+        o.unobserve(e.target);
+        const el = e.target, target = +el.dataset.count, t0 = performance.now();
+        (function step(now) {
+          const p = Math.min((now - t0) / 1800, 1);
+          el.textContent = fmt(el, Math.round(target * (1 - Math.pow(1 - p, 4))));
+          if (p < 1) requestAnimationFrame(step);
+        })(t0);
+      }), { threshold: 0.6 });
+      els.forEach((el) => io.observe(el));
+    }
+
+    // Circular Text: text set on a circle; turns slowly, speeds up under the pointer
+    function initCircular() {
+      $$('main [data-circ]').forEach((el, n) => {
+        const r = 78, id = 'circPath' + n;
+        el.insertAdjacentHTML('afterbegin',
+          '<svg class="circ__ring" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="' + id +
+          '" d="M100,100 m-' + r + ',0 a' + r + ',' + r + ' 0 1,1 ' + 2 * r + ',0 a' + r + ',' + r + ' 0 1,1 -' + 2 * r + ',0"/></defs>' +
+          '<text><textPath href="#' + id + '" textLength="' + (2 * Math.PI * r).toFixed(1) + '" lengthAdjust="spacing"></textPath></text></svg>');
+        el.querySelector('textPath').textContent = el.dataset.circ.toUpperCase();
+        if (reduce || !('IntersectionObserver' in window)) return;
+        const ring = el.querySelector('.circ__ring');
+        let angle = 0, speed = 12, target = 12, visible = false, last = 0, raf = 0;
+        function frame(now) {
+          const dt = last ? Math.min((now - last) / 1000, 0.05) : 0;
+          last = now;
+          speed += (target - speed) * 0.05;
+          angle = (angle + speed * dt) % 360;
+          ring.style.transform = 'rotate(' + angle.toFixed(2) + 'deg)';
+          if (visible) raf = requestAnimationFrame(frame);
+          else { raf = 0; last = 0; }
+        }
+        el.addEventListener('pointerenter', () => { target = 64; });
+        el.addEventListener('pointerleave', () => { target = 12; });
+        new IntersectionObserver(([e]) => {
+          visible = e.isIntersecting;
+          if (visible && !raf) raf = requestAnimationFrame(frame);
+        }).observe(el);
+      });
+    }
+
+    // Curved Loop: a line of text flowing along a gentle arc. Drag to scrub; it keeps
+    // going in the direction you dragged. Runs only while on screen.
+    function initCurvedLoop() {
+      const box = $('#curvedLoop');
+      if (!box) return;
+      box.innerHTML = '<svg viewBox="0 0 1440 250" preserveAspectRatio="xMidYMid meet">' +
+        '<defs><path id="loopPath" d="M-100,60 Q720,240 1540,60"/></defs>' +
+        '<text class="curved-loop__text"><textPath href="#loopPath"></textPath></text></svg>';
+      const svgEl = box.querySelector('svg');
+      const tp = box.querySelector('textPath');
+      const textEl = box.querySelector('text');
+      const pathLen = box.querySelector('path').getTotalLength();
+      const unit = box.dataset.text;
+      let unitLen = 0, offset = 0, dir = -1, visible = false, raf = 0, last = 0, drag = null;
+
+      function build() {
+        tp.textContent = unit;
+        unitLen = textEl.getComputedTextLength();
+        if (!unitLen) return;
+        tp.textContent = unit.repeat(Math.ceil(pathLen / unitLen) + 2);
+        offset = -unitLen * 0.5;
+        place();
+      }
+      function place() {
+        if (!unitLen) return;
+        while (offset <= -unitLen) offset += unitLen;
+        while (offset > 0) offset -= unitLen;
+        tp.setAttribute('startOffset', offset.toFixed(1));
+      }
+      function frame(now) {
+        const dt = last ? Math.min((now - last) / 1000, 0.05) : 0;
+        last = now;
+        if (!drag) { offset += dir * 70 * dt; place(); }
+        if (visible) raf = requestAnimationFrame(frame);
+        else { raf = 0; last = 0; }
+      }
+      build();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
+
+      box.addEventListener('pointerdown', (e) => {
+        drag = { x: e.clientX };
+        box.classList.add('is-dragging');
+        box.setPointerCapture(e.pointerId);
+      });
+      box.addEventListener('pointermove', (e) => {
+        if (!drag) return;
+        const dx = (e.clientX - drag.x) * (1440 / svgEl.clientWidth);
+        drag.x = e.clientX;
+        if (Math.abs(dx) > 0.5) dir = dx > 0 ? 1 : -1;
+        offset += dx;
+        place();
+      });
+      const end = () => { drag = null; box.classList.remove('is-dragging'); };
+      box.addEventListener('pointerup', end);
+      box.addEventListener('pointercancel', end);
+
+      if (reduce || !('IntersectionObserver' in window)) return;
+      new IntersectionObserver(([e]) => {
+        visible = e.isIntersecting;
+        if (visible && !raf) raf = requestAnimationFrame(frame);
+      }).observe(box);
+    }
+
+    // Subtle 3D depth: feature tiles and gallery photos lean toward the pointer (desktop only)
+    function initTilt() {
+      if (reduce || !finePointer) return;
+      $$('main .feature--media, main .g-item').forEach((el) => {
+        el.dataset.tilt = '';
+        el.addEventListener('pointermove', (e) => {
+          const r = el.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+          el.style.setProperty('--ry', (x * 7).toFixed(2) + 'deg');
+          el.style.setProperty('--rx', (y * -7).toFixed(2) + 'deg');
+        });
+        el.addEventListener('pointerleave', () => { el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg'); });
+      });
+    }
+
+    /* ---------- Cursor spotlight on premium cards (desktop only) ---------- */
+    function initSpotlight() {
+      if (reduce || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      document.addEventListener('pointermove', (e) => {
+        const el = e.target.closest && e.target.closest('[data-spot]');
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        el.style.setProperty('--mx', (e.clientX - r.left).toFixed(0) + 'px');
+        el.style.setProperty('--my', (e.clientY - r.top).toFixed(0) + 'px');
+      }, { passive: true });
     }
 
     /* ---------- Lightbox ---------- */
@@ -1240,8 +1696,80 @@
     }
 
     /* ---------- Boot ---------- */
+    /* ---------- Luxe layer (styles: css/style.css section 24) ----------
+       Section numerals, a soft cursor ring, magnetic buttons and a gentle
+       scroll drift on the outlined background words. Desktop pointers only
+       for the cursor and magnets; nothing runs with reduced motion. */
+    function initLuxe() {
+      // Outlined numerals, numbered like the kickers (01 = first section after the hero)
+      const secs = $$('main > section:not(.hero)');
+      ['#features', '#floorplans'].forEach((sel) => {
+        const s = $(sel);
+        if (!s) return;
+        const num = make('span', 'lx-index', pad2(secs.indexOf(s) + 1));
+        num.setAttribute('aria-hidden', 'true');
+        s.prepend(num);
+      });
+      if (reduce) return;
+
+      // Background words drift a little against the scroll
+      const drift = $$('.lx-index, .gallery__word');
+      let busy = false;
+      function driftUpdate() {
+        busy = false;
+        const vh = window.innerHeight;
+        drift.forEach((el) => {
+          const r = el.parentElement.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > vh) return;
+          const p = (vh - r.top) / (vh + r.height) - 0.5;   // -0.5 .. 0.5 across the pass
+          el.style.setProperty('--lx-shift', (p * (el.classList.contains('gallery__word') ? -160 : 40)).toFixed(1) + 'px');
+        });
+      }
+      window.addEventListener('scroll', () => { if (!busy) { busy = true; requestAnimationFrame(driftUpdate); } }, { passive: true });
+      driftUpdate();
+
+      if (!finePointer) return;
+
+      // Magnetic calls to action
+      $$('.btn--primary:not(.btn--wide), .header__cta, .gallery__toggle, .circ--cta, .theme-btn').forEach((el) => {
+        const k = el.classList.contains('circ--cta') ? 0.22 : 0.3;
+        el.addEventListener('pointermove', (e) => {
+          const r = el.getBoundingClientRect();
+          el.style.transform = 'translate(' + ((e.clientX - r.left - r.width / 2) * k).toFixed(1) + 'px,' + ((e.clientY - r.top - r.height / 2) * k).toFixed(1) + 'px)';
+        });
+        el.addEventListener('pointerleave', () => { el.style.transform = ''; });
+      });
+
+      // Cursor ring that trails the pointer and grows over links and photos
+      const ring = make('div', 'lx-cursor');
+      ring.setAttribute('aria-hidden', 'true');
+      ring.appendChild(make('span', '', 'View'));
+      const dot = make('div', 'lx-dot');
+      dot.setAttribute('aria-hidden', 'true');
+      document.body.append(ring, dot);
+      let x = -100, y = -100, rx = x, ry = y, raf = 0;
+      function loop() {
+        rx += (x - rx) * 0.18;
+        ry += (y - ry) * 0.18;
+        ring.style.transform = 'translate3d(' + rx.toFixed(1) + 'px,' + ry.toFixed(1) + 'px,0)';
+        raf = Math.abs(x - rx) + Math.abs(y - ry) > 0.3 ? requestAnimationFrame(loop) : 0;
+      }
+      document.addEventListener('pointermove', (e) => {
+        if (e.pointerType !== 'mouse') return;
+        x = e.clientX; y = e.clientY;
+        dot.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
+        document.body.classList.add('lx-on');
+        const t = e.target.closest ? e.target : null;
+        const view = t && t.closest('.g-item, .amen-tile, .specs-visual');
+        ring.classList.toggle('is-view', !!view);
+        ring.classList.toggle('is-link', !view && !!(t && t.closest('a, button, select, label, .amen-entry')));
+        if (!raf) raf = requestAnimationFrame(loop);
+      }, { passive: true });
+      document.addEventListener('pointerleave', () => document.body.classList.remove('lx-on'));
+      window.addEventListener('blur', () => document.body.classList.remove('lx-on'));
+    }
+
     function init() {
-      renderHero();
       renderStatic();
       renderStats();
       renderFeatures();
@@ -1251,13 +1779,20 @@
       renderSpecs();
       renderContact();
       initDrone();
-      initIntroCarousel();
       initPlanViewer();
       initTheme();
       initNav();
       initLb();
       initForm();
+      initTextMotion();
+      initCircular();
+      initCurvedLoop();
+      initCounters();
+      initTilt();
+      initSpotlight();
       initScroll();
+      initScrub();
+      initLuxe();
       requestAnimationFrame(() => document.body.classList.add('loaded'));
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
