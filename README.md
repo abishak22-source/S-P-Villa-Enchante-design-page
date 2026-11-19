@@ -1,4 +1,4 @@
-# S&P Villa Enchante — Easy Editing Guide
+# S&P Villa Enchante —  Guide
 
 For most design changes, edit `index.html` and `css/style.css`. The JavaScript required for the existing menu, enquiry form, gallery, map, and plan viewer is embedded at the bottom of `index.html`; you do not need to edit it for normal layout or style changes.
 
